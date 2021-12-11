@@ -6,12 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import com.avtograv.weatherapp.R
 import com.avtograv.weatherapp.databinding.FragmentMainScreenBinding
+import com.avtograv.weatherapp.presentetion.viewpager.ExtensionFragment
 
 
-class MainScreenFragment : Fragment() {
+class MainScreenFragment : ExtensionFragment() {
 
     private lateinit var binding: FragmentMainScreenBinding
     private var _context: ClickListener? = null
@@ -38,6 +38,9 @@ class MainScreenFragment : Fragment() {
             title = "Location - title"
             setNavigationOnClickListener {
                 _context?.goAddLocation()
+                // TODO
+                val fragmentDeep = AddLocationFragment()
+                fragmentReplacer.replace(pagePos, fragmentDeep)
             }
         }
     }
@@ -56,16 +59,5 @@ class MainScreenFragment : Fragment() {
 
     interface ClickListener {
         fun goAddLocation()
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance(page: Int): MainScreenFragment {
-            val fragment = MainScreenFragment()
-            val args = Bundle()
-            args.putInt("num", page)
-            fragment.arguments = args
-            return fragment
-        }
     }
 }

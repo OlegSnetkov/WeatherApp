@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.avtograv.weatherapp.databinding.FragmentAddLocationBinding
+import com.avtograv.weatherapp.presentetion.viewpager.ExtensionFragment
 
 
-class AddLocationFragment : Fragment() {
+class AddLocationFragment : ExtensionFragment() {
 
     private lateinit var binding: FragmentAddLocationBinding
 
@@ -20,8 +20,10 @@ class AddLocationFragment : Fragment() {
         return binding.root
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance() = AddLocationFragment()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.bBack.setOnClickListener {
+            fragmentReplacer.replaceCurrentToDef()
+        }
     }
 }
