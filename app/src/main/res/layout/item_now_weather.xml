@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimaryDark">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/space_normal" />
+
+    <LinearLayout
+        android:id="@+id/ll_now_weather"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_temp_now"
+            style="@style/item_specificity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="0dp"
+            android:textSize="@dimen/text_big"
+            tools:text="16" />
+
+        <TextView
+            android:id="@+id/tv_about_weather_now"
+            style="@style/item_specificity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            tools:text="Clear" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="110dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:background="@drawable/rounded_corners"
+            android:gravity="center"
+            android:textColor="@color/colorTextPrimary"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="AQI 23" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_more_details"
+        style="@style/item_specificity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_big"
+        android:text="@string/more_details"
+        app:layout_constraintEnd_toEndOf="@+id/gl_end"
+        app:layout_constraintTop_toBottomOf="@+id/ll_now_weather" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
