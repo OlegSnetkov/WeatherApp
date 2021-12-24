@@ -10,7 +10,6 @@ data class DataMainScreen(
 data class DataNowWeather(
     val id: Int,
     val location: String,
-    val timeStamp: Long,
     val tempNow: String,
     val aboutWeatherNow: String
 )

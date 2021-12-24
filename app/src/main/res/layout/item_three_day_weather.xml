@@ -5,8 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ll_container"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/colorPrimaryDark">
+    android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gl_start"
@@ -52,7 +51,7 @@
             android:layout_marginStart="@dimen/space_small"
             android:layout_marginTop="@dimen/space_small"
             android:contentDescription="@string/ic_weather"
-            android:src="@drawable/ic_add" />
+            android:src="@drawable/ic_two_tone_cloud_24" />
 
         <TextView
             android:id="@+id/tv_text_today"
@@ -118,7 +117,7 @@
             android:layout_marginStart="@dimen/space_small"
             android:layout_marginTop="@dimen/space_small"
             android:contentDescription="@string/ic_weather"
-            android:src="@drawable/ic_add" />
+            android:src="@drawable/ic_two_tone_cloud_24" />
 
         <TextView
             android:id="@+id/tv_text_tomorrow"
@@ -185,7 +184,7 @@
             android:layout_marginStart="@dimen/space_small"
             android:layout_marginTop="@dimen/space_small"
             android:contentDescription="@string/ic_weather"
-            android:src="@drawable/ic_add" />
+            android:src="@drawable/ic_two_tone_cloud_24" />
 
         <TextView
             android:id="@+id/tv_text_after_tomorrow"

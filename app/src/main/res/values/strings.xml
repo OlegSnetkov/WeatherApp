@@ -1,10 +1,14 @@
 <resources>
     <string name="app_name">WeatherApp</string>
 
+    <string name="description_add">Add item to groceries list</string>
+    <string name="hint_search_query">Enter location</string>
     <string name="more_details"><![CDATA[More details >]]></string>
     <string name="text_today">Today -</string>
     <string name="text_tomorrow">Tomorrow -</string>
     <string name="text_after_tomorrow">Tuesday -</string>
     <string name="ic_weather">ic_weather</string>
     <string name="slash">/</string>
+    <string name="ic_arrow_back">ic arrow back</string>
+    <string name="manage_cities">Manage cities</string>
 </resources>

@@ -2,12 +2,13 @@
 <resources>
     <!--    WeatherApp  -->
     <color name="colorPrimary">#397dd5</color>
+    <color name="colorPrimaryTransparent">#90397dd5</color>
     <color name="colorPrimaryDark">#001361</color>
     <color name="colorSecondary">#88a2cb</color>
     <color name="colorSecondaryDark">#456393</color>
     <color name="colorTextPrimary">#f4f6fa</color>
-    <color name="colorTextSecondary">#303030</color>
     <color name="colorTextHint">#d8e1ee</color>
+    <color name="colorTextHintSecondary">#303030</color>
     <color name="colorSun">#ffde00</color>
     <color name="colorAccent">#f7aa5e</color>
     <color name="colorGreen">#4fb736</color>

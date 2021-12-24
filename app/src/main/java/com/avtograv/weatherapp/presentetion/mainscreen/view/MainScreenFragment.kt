@@ -6,9 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.avtograv.weatherapp.R
 import com.avtograv.weatherapp.databinding.FragmentMainScreenBinding
+import com.avtograv.weatherapp.getLocationList
 
 
 class MainScreenFragment : Fragment() {
@@ -26,6 +30,7 @@ class MainScreenFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         pageNumber = if (arguments != null) requireArguments().getInt("num") else 0
+
     }
 
     override fun onCreateView(
@@ -38,7 +43,9 @@ class MainScreenFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         setupToolbar()
+        setupUiComponents()
     }
 
     private fun setupToolbar() {
@@ -48,6 +55,7 @@ class MainScreenFragment : Fragment() {
             setNavigationIcon(R.drawable.ic_plus_white)
             titleMarginStart = 200
             title = "Fragment - ${pageNumber + 1}"
+            setTitleTextColor(ContextCompat.getColor(context, R.color.colorTextPrimary))
 
             setNavigationOnClickListener {
                 _context?.letAddLocation()
@@ -57,6 +65,11 @@ class MainScreenFragment : Fragment() {
 
     private fun setupUiComponents() {
         val mainAdapter = RvAdapter()
+        binding.rvWeather.apply {
+            layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+            adapter = mainAdapter
+        }
+        mainAdapter.submitList(getLocationList(requireContext()))
     }
 
     override fun onDetach() {

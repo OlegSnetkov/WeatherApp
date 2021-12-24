@@ -15,7 +15,6 @@ class RvAdapter : ListAdapter<DataMainScreen, RecyclerView.ViewHolder>(
     AsyncDifferConfig.Builder(DiffCallback()).build()
 ) {
 
-
     override fun onCreateViewHolder(viewGroup: ViewGroup, position: Int): RecyclerView.ViewHolder {
         return when (position) {
             TYPE_NOW_WEATHER -> {

@@ -1,4 +1,4 @@
-package com.avtograv.weatherapp.presentetion
+package com.avtograv.weatherapp.presentetion.locationadd
 
 import android.content.Context
 import android.os.Bundle
@@ -31,7 +31,7 @@ class AddLocationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.bBack.setOnClickListener {
+        binding.ivArrowLeft.setOnClickListener{
             _context?.onBackMainScreen()
         }
     }

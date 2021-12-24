@@ -1,35 +1,41 @@
-package com.avtograv.weatherapp
+package com.avtograv.weatherapp.presentetion.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.avtograv.weatherapp.databinding.MainActivityBinding
-import com.avtograv.weatherapp.presentetion.AddLocationFragment
+import com.avtograv.weatherapp.di.RepositoryProvider
+import com.avtograv.weatherapp.getLocationList
+import com.avtograv.weatherapp.presentetion.locationadd.AddLocationFragment
 import com.avtograv.weatherapp.presentetion.mainscreen.view.MainScreenFragment
 import com.avtograv.weatherapp.presentetion.viewpager.DepthPageTransformer
-import com.avtograv.weatherapp.presentetion.viewpager.ScreenSlidePagerAdapter
+import com.avtograv.weatherapp.presentetion.viewpager.ViewPagerAdapter
 
 class MainActivity : AppCompatActivity(),
     MainScreenFragment.ClickListener,
-    AddLocationFragment.BackClickListener {
+    AddLocationFragment.BackClickListener,
+    RepositoryProvider {
 
     private lateinit var binding: MainActivityBinding
+    private var itemCount = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        itemCount = getLocationList(this).size / 2
 
         binding = MainActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.viewpager.setPageTransformer(DepthPageTransformer())
-        binding.viewpager.adapter = ScreenSlidePagerAdapter(this, SHOW_MAIN_SCREEN)
+        binding.viewpager.adapter = ViewPagerAdapter(this, SELECT_MAIN_SCREEN, itemCount)
     }
 
     override fun letAddLocation() {
-        binding.viewpager.adapter = ScreenSlidePagerAdapter(this, SHOW_ADD_LOCATION)
+        binding.viewpager.adapter = ViewPagerAdapter(this, SELECT_ADD_LOCATION)
     }
 
     override fun onBackMainScreen() {
-        binding.viewpager.adapter = ScreenSlidePagerAdapter(this, SHOW_MAIN_SCREEN)
+        binding.viewpager.adapter = ViewPagerAdapter(this, SELECT_MAIN_SCREEN, itemCount)
     }
 
     override fun onBackPressed() {
@@ -41,8 +47,8 @@ class MainActivity : AppCompatActivity(),
         }
     }
 
-    companion object{
-        const val SHOW_MAIN_SCREEN = 0
-        const val SHOW_ADD_LOCATION = 1
+    companion object {
+        private const val SELECT_MAIN_SCREEN = true
+        private const val SELECT_ADD_LOCATION = false
     }
 }
