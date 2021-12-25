@@ -2,9 +2,9 @@ package com.avtograv.weatherapp.model
 
 data class DataMainScreen(
     val weatherNow: DataNowWeather,
-    val weatherToday: DataThreeDaysWeather,
-    val weatherTomorrow: DataThreeDaysWeather,
-    val weatherAfterTomorrow: DataThreeDaysWeather
+    val weatherToday: ForecastWeather,
+    val weatherTomorrow: ForecastWeather,
+    val weatherAfterTomorrow: ForecastWeather
 )
 
 data class DataNowWeather(
@@ -14,7 +14,7 @@ data class DataNowWeather(
     val aboutWeatherNow: String
 )
 
-data class DataThreeDaysWeather(
+data class ForecastWeather(
     val ic_weather: String,
     val text_weather: String,
     val max_temp: String,

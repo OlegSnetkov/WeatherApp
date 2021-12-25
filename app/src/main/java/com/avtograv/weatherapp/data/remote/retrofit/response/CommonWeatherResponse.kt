@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 
 @Serializable
-class CurrentWeatherResponse(
+class CommonWeatherResponse(
     @SerialName("coord") val coordinatesResponse: CoordinatesResponse,
     @SerialName("weather") val weatherResponse: WeatherResponse,
     @SerialName("base") val baseResponse: String,

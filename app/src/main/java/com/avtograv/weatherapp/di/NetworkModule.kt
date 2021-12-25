@@ -1,6 +1,5 @@
 package com.avtograv.weatherapp.di
 
-
 import com.avtograv.weatherapp.data.remote.retrofit.ApiService
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.json.Json

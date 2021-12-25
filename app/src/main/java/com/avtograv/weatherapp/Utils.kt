@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.preference.PreferenceManager
 import com.avtograv.weatherapp.model.DataMainScreen
 import com.avtograv.weatherapp.model.DataNowWeather
-import com.avtograv.weatherapp.model.DataThreeDaysWeather
+import com.avtograv.weatherapp.model.ForecastWeather
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -33,19 +33,19 @@ fun getLocationList(context: Context): List<DataMainScreen> {
                     tempNow = Random.nextInt(-30, 30).toString(),
                     aboutWeatherNow = "Clear"
                 ),
-                DataThreeDaysWeather(
+                ForecastWeather(
                     "",
                     "",
                     "",
                     ""
                 ),
-                DataThreeDaysWeather(
+                ForecastWeather(
                     "",
                     "",
                     "",
                     ""
                 ),
-                DataThreeDaysWeather(
+                ForecastWeather(
                     "",
                     "",
                     "",
@@ -60,19 +60,19 @@ fun getLocationList(context: Context): List<DataMainScreen> {
                     "",
                     ""
                 ),
-                DataThreeDaysWeather(
+                ForecastWeather(
                     "",
                     "Cloudy",
                     max_temp = Random.nextInt(-30, 30).toString(),
                     min_temp = Random.nextInt(-30, 30).toString()
                 ),
-                DataThreeDaysWeather(
+                ForecastWeather(
                     "",
                     "Winter",
                     max_temp = Random.nextInt(-30, 30).toString(),
                     min_temp = Random.nextInt(-30, 30).toString()
                 ),
-                DataThreeDaysWeather(
+                ForecastWeather(
                     "Little cloudy",
                     "",
                     max_temp = Random.nextInt(-30, 30).toString(),

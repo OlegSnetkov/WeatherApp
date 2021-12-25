@@ -1,8 +1,6 @@
 package com.avtograv.weatherapp.presentetion.mainscreen.viewmodel
 
 import androidx.lifecycle.MutableLiveData
-import com.avtograv.weatherapp.Failure
-import com.avtograv.weatherapp.Success
 import com.avtograv.weatherapp.model.DataMainScreen
 
 internal class VmMainScreenImpl : VmMainScreen() {

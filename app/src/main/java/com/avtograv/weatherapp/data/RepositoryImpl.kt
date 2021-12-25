@@ -1,4 +1,6 @@
-package com.avtograv.weatherapp.data.remote
+package com.avtograv.weatherapp.data
 
-class RepositoryImpl {
+import com.avtograv.weatherapp.data.remote.RemoteDataSource
+
+class RepositoryImpl(private val remoteDataSource: RemoteDataSource) {
 }
