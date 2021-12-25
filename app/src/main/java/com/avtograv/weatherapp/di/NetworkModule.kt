@@ -13,8 +13,7 @@ import java.util.concurrent.TimeUnit
 
 
 class NetworkModule {
-    private val baseUrl = "https://api.openweathermap.org/data/"
-    private val version = "2.5/"
+    private val baseUrl = "https://api.openweathermap.org/"
 
     private val json = Json {
         prettyPrint = true
@@ -37,7 +36,7 @@ class NetworkModule {
 
 
     private val retrofitBuilder = Retrofit.Builder()
-        .baseUrl(baseUrl + version)
+        .baseUrl(baseUrl)
         .addConverterFactory(json.asConverterFactory(contentType))
         .client(httpClient)
 

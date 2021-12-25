@@ -6,6 +6,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 class WeatherResponse(
-    @SerialName("lon") val longitude: Double,
-    @SerialName("latitude") val feelsLike: Double
+    @SerialName("id") val WeatherConditionId: Int,
+    @SerialName("main") val weatherParameters: String,          // Clear, Rain, Snow, Extreme etc
+    @SerialName("description") val weatherCondition: String,    // "пасмурно" - can get the output in other language
+    @SerialName("icon") val iconId: String
 )
