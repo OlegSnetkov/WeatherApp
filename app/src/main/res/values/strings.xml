@@ -11,4 +11,6 @@
     <string name="slash">/</string>
     <string name="ic_arrow_back">ic arrow back</string>
     <string name="manage_cities">Manage cities</string>
+
+    <string name="error_network_failed">Check your network connection!</string>
 </resources>

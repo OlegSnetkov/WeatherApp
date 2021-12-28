@@ -11,5 +11,5 @@ internal class FactoryViewModel(
     private val nameCity: String
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T =
-        WeatherImplViewModel(repository, nameCity) as T
+        WeatherViewModelImpl(repository, nameCity) as T
 }

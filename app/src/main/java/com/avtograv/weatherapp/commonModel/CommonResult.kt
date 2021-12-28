@@ -1,7 +1,6 @@
 package com.avtograv.weatherapp.commonModel
 
 
-
 sealed class CommonResult<out T>
 
 //internal object Loading : CommonResult<Nothing>()

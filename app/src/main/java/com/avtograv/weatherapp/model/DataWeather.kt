@@ -1,5 +1,6 @@
 package com.avtograv.weatherapp.model
 
+
 data class DataWeather(
     val weatherNow: DataCurrentWeather,
     val weatherToday: DataForecastWeather,

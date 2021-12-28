@@ -5,14 +5,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.avtograv.weatherapp.R
 import com.avtograv.weatherapp.databinding.FragmentMainScreenBinding
+import com.avtograv.weatherapp.di.RepositoryProvider
+import com.avtograv.weatherapp.exhaustive
 import com.avtograv.weatherapp.getLocationList
+import com.avtograv.weatherapp.presentetion.mainscreen.viewmodel.FactoryViewModel
+import com.avtograv.weatherapp.presentetion.mainscreen.viewmodel.OptionsViewState
+import com.avtograv.weatherapp.presentetion.mainscreen.viewmodel.WeatherViewModelImpl
 
 
 class MainScreenFragment : Fragment() {
@@ -20,6 +27,14 @@ class MainScreenFragment : Fragment() {
     private lateinit var binding: FragmentMainScreenBinding
     private var pageNumber = 0
     private var _context: ClickListener? = null
+    private val loadLocation = "Ulan-Ude"
+
+    private val weatherViewModel: WeatherViewModelImpl by viewModels {
+        FactoryViewModel(
+            (requireActivity() as RepositoryProvider).provideRepository(),
+            loadLocation
+        )
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -46,6 +61,7 @@ class MainScreenFragment : Fragment() {
 
         setupToolbar()
         setupUiComponents()
+        loadCurrentWeather()
     }
 
     private fun setupToolbar() {
@@ -70,6 +86,23 @@ class MainScreenFragment : Fragment() {
             adapter = mainAdapter
         }
         mainAdapter.submitList(getLocationList(requireContext()))
+    }
+
+    private fun loadCurrentWeather() {
+        weatherViewModel.stateOutput.observe(viewLifecycleOwner, { state ->
+            when (state) {
+                is OptionsViewState.SuccessLoading -> {
+//                   state.dataWeather.location
+//                    state.dataWeather.tempNow
+
+                }
+                is OptionsViewState.FailedLoading -> Toast.makeText(
+                    requireContext(),
+                    R.string.error_network_failed,
+                    Toast.LENGTH_SHORT
+                ).show()
+            }.exhaustive
+        })
     }
 
     override fun onDetach() {
