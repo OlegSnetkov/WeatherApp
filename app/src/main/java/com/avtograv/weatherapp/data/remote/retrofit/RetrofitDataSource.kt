@@ -2,14 +2,14 @@ package com.avtograv.weatherapp.data.remote.retrofit
 
 import com.avtograv.weatherapp.data.remote.RemoteDataSource
 import com.avtograv.weatherapp.model.DataCoordinates
-import com.avtograv.weatherapp.model.DataNowWeather
-import com.avtograv.weatherapp.model.ForecastWeather
+import com.avtograv.weatherapp.model.DataCurrentWeather
+import com.avtograv.weatherapp.model.DataForecastWeather
 
 internal class RetrofitDataSource(private val api: ApiService) : RemoteDataSource {
 
-    override suspend fun loadingCurrentWeather(location: String): DataNowWeather {
+    override suspend fun loadingCurrentWeather(location: String): DataCurrentWeather {
         val details = api.loadCurrentWeather(location)
-        return DataNowWeather(
+        return DataCurrentWeather(
             id = details.cityId,
             location = details.cityName,
             tempNow = details.mainWeatherResponse.currentTemp.toString(),
@@ -20,7 +20,7 @@ internal class RetrofitDataSource(private val api: ApiService) : RemoteDataSourc
     override suspend fun loadingDailyForecast(
         latLocation: String,
         lonLocation: String
-    ): List<ForecastWeather> {
+    ): List<DataForecastWeather> {
         TODO("Not yet implemented")
     }
 

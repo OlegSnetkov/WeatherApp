@@ -8,10 +8,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.avtograv.weatherapp.databinding.ItemNowWeatherBinding
 import com.avtograv.weatherapp.databinding.ItemThreeDayWeatherBinding
-import com.avtograv.weatherapp.model.DataMainScreen
+import com.avtograv.weatherapp.model.DataWeather
 
 
-class RvAdapter : ListAdapter<DataMainScreen, RecyclerView.ViewHolder>(
+class RvAdapter : ListAdapter<DataWeather, RecyclerView.ViewHolder>(
     AsyncDifferConfig.Builder(DiffCallback()).build()
 ) {
 
@@ -53,11 +53,11 @@ class RvAdapter : ListAdapter<DataMainScreen, RecyclerView.ViewHolder>(
         }
     }
 
-    private class DiffCallback : DiffUtil.ItemCallback<DataMainScreen>() {
-        override fun areItemsTheSame(oldItem: DataMainScreen, newItem: DataMainScreen) =
+    private class DiffCallback : DiffUtil.ItemCallback<DataWeather>() {
+        override fun areItemsTheSame(oldItem: DataWeather, newItem: DataWeather) =
             oldItem.weatherNow.id == newItem.weatherNow.id
 
-        override fun areContentsTheSame(oldItem: DataMainScreen, newItem: DataMainScreen) =
+        override fun areContentsTheSame(oldItem: DataWeather, newItem: DataWeather) =
             oldItem == newItem
     }
 
@@ -65,7 +65,7 @@ class RvAdapter : ListAdapter<DataMainScreen, RecyclerView.ViewHolder>(
     inner class NowWeatherHolder(private val itemBinding: ItemNowWeatherBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
 
-        fun bind(item: DataMainScreen) {
+        fun bind(item: DataWeather) {
             itemBinding.tvTempNow.text = item.weatherNow.tempNow
             itemBinding.tvAboutWeatherNow.text = item.weatherNow.aboutWeatherNow
         }
@@ -74,7 +74,7 @@ class RvAdapter : ListAdapter<DataMainScreen, RecyclerView.ViewHolder>(
     inner class ThreeDayWeatherHolder(private val itemBinding: ItemThreeDayWeatherBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
 
-        fun bind(item: DataMainScreen) {
+        fun bind(item: DataWeather) {
             itemBinding.tvAboutWeatherToday.text = item.weatherToday.text_weather
             itemBinding.rvTodayTempMax.text = item.weatherToday.max_temp
             itemBinding.rvTodayTempMin.text = item.weatherToday.min_temp
