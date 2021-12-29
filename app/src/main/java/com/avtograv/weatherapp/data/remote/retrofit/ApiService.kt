@@ -1,6 +1,8 @@
 package com.avtograv.weatherapp.data.remote.retrofit
 
 import com.avtograv.weatherapp.data.remote.retrofit.response.CurrentWeatherResponse
+import com.avtograv.weatherapp.data.remote.retrofit.response.GeocodingResponse
+import com.avtograv.weatherapp.data.remote.retrofit.response.OneCallResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -18,10 +20,10 @@ interface ApiService {
     suspend fun loadForecastWeather(
         @Query("lat") latitude: String = "51.788898468",
         @Query("lon") longitude: String = "107.682502747",
-        @Query("exclude") exclude: String = "current,minutely,hourly,alerts",
+        @Query("exclude") exclude: String = "minutely,hourly,alerts",
         @Query("lang") lang: String = "RU",
         @Query("units") units: String = "metric"
-    )
+    ): OneCallResponse
 
     @GET("data/2.5/air_pollution")
     suspend fun loadAirPollution(
@@ -34,7 +36,7 @@ interface ApiService {
         @Query("q") location: String = "",
         @Query("lang") lang: String = "RU",
         @Query("limit") numLocation: String = "1"
-    )
+    ): GeocodingResponse
 
 
 }

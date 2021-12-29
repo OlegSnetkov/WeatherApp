@@ -5,19 +5,19 @@ import com.avtograv.weatherapp.model.DataCoordinates
 import com.avtograv.weatherapp.model.DataCurrentWeather
 import com.avtograv.weatherapp.model.DataForecastWeather
 import com.avtograv.weatherapp.model.DataWeather
-import kotlin.random.Random
+
 
 internal class RetrofitDataSource(private val api: ApiService) : RemoteDataSource {
 
-    override suspend fun loadingCurrentWeather(location: String): List<DataWeather> {
-        val details = api.loadCurrentWeather(location)
+    override suspend fun loadingDailyForecast(): List<DataWeather> {
+        val details = api.loadForecastWeather()
         return listOf(
             DataWeather(
                 DataCurrentWeather(
                     0,
-                    details.cityName,
-                    details.mainWeatherResponse.currentTemp.toInt().toString(),
-                    details.weatherResponse[0].weatherCondition
+                    "",
+                    details.current.temp?.toInt().toString(),
+                    details.current.weather[0].description
                 ),
                 DataForecastWeather(
                     "", "", "", ""
@@ -32,36 +32,29 @@ internal class RetrofitDataSource(private val api: ApiService) : RemoteDataSourc
 
             DataWeather(
                 DataCurrentWeather(
-                    2,
+                    1,
                     "", "", ""
                 ),
                 DataForecastWeather(
                     "",
-                    "Cloudy",
-                    max_temp = Random.nextInt(-30, 30).toString(),
-                    min_temp = Random.nextInt(-30, 30).toString()
+                    details.daily[1].weather[0].main,
+                    details.daily[1].temp.min.toInt().toString(),
+                    details.daily[1].temp.max.toInt().toString()
                 ),
                 DataForecastWeather(
                     "",
-                    "Winter",
-                    max_temp = Random.nextInt(-30, 30).toString(),
-                    min_temp = Random.nextInt(-30, 30).toString()
+                    details.daily[2].weather[0].main,
+                    details.daily[2].temp.min.toInt().toString(),
+                    details.daily[3].temp.max.toInt().toString()
                 ),
                 DataForecastWeather(
                     "Little cloudy",
-                    "",
-                    max_temp = Random.nextInt(-30, 30).toString(),
-                    min_temp = Random.nextInt(-30, 30).toString()
+                    details.daily[3].weather[0].main,
+                    details.daily[3].temp.min.toInt().toString(),
+                    details.daily[3].temp.max.toInt().toString()
                 )
             )
         )
-    }
-
-    override suspend fun loadingDailyForecast(
-        latLocation: String,
-        lonLocation: String
-    ): List<DataForecastWeather> {
-        TODO("Not yet implemented")
     }
 
     //TODO

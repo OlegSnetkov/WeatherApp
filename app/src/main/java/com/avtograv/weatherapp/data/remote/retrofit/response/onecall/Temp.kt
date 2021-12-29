@@ -7,10 +7,10 @@ import kotlinx.serialization.Serializable
 data class Temp(
 
 	@SerialName("min")
-	val min: Double? = null,
+	val min: Double,
 
 	@SerialName("max")
-	val max: Double? = null,
+	val max: Double,
 
 	@SerialName("eve")
 	val eve: Double? = null,

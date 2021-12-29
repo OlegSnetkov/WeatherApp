@@ -11,14 +11,16 @@ import com.avtograv.weatherapp.model.DataWeather
 import kotlinx.coroutines.launch
 
 
-internal class WeatherViewModelImpl(repository: WeatherRepository, nameCity: String) :
+//internal class WeatherViewModelImpl(repository: WeatherRepository, nameCity: String) :
+internal class WeatherViewModelImpl(repository: WeatherRepository) :
     WeatherViewModel() {
 
     override val stateOutput = MutableLiveData<OptionsViewState>()
 
     init {
         viewModelScope.launch {
-            handleResult(repository.loadWeather(nameCity))
+//            handleResult(repository.loadWeather(nameCity))
+            handleResult(repository.loadWeather())
         }
     }
 

@@ -8,8 +8,9 @@ import com.avtograv.weatherapp.domain.WeatherRepository
 @Suppress("UNCHECKED_CAST")
 internal class FactoryViewModel(
     private val repository: WeatherRepository,
-    private val nameCity: String
+   // private val nameCity: String
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T =
-        WeatherViewModelImpl(repository, nameCity) as T
+//        WeatherViewModelImpl(repository, nameCity) as T
+    WeatherViewModelImpl(repository) as T
 }

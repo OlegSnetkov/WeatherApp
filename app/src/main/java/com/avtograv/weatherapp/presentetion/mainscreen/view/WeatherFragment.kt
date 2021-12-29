@@ -34,7 +34,7 @@ class WeatherFragment : Fragment() {
     private val weatherViewModel: WeatherViewModelImpl by viewModels {
         FactoryViewModel(
             (requireActivity() as RepositoryProvider).provideRepository(),
-            (getLocationList(requireContext()).first())
+            //(getLocationList(requireContext()).first())
         )
     }
 

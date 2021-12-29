@@ -8,10 +8,24 @@ import com.avtograv.weatherapp.model.DataCurrentWeather
 import com.avtograv.weatherapp.model.DataWeather
 
 
+//class RepositoryImpl(private val remoteDataSource: RemoteDataSource) : WeatherRepository {
+//
+//    override suspend fun loadWeather(findLocation: String): CommonResult<List<DataWeather>> {
+//
+//        return runCatchingResult { remoteDataSource.loadingCurrentWeather(findLocation) }
+//    }
+//}
+
 class RepositoryImpl(private val remoteDataSource: RemoteDataSource) : WeatherRepository {
 
-    override suspend fun loadWeather(findLocation: String): CommonResult<List<DataWeather>> {
+//    override suspend fun loadWeather(findLocation: String): CommonResult<List<DataWeather>> {
+//
+//        return runCatchingResult { remoteDataSource.loadingCurrentWeather(findLocation) }
+//    }
 
-        return runCatchingResult { remoteDataSource.loadingCurrentWeather(findLocation) }
+    override suspend fun loadWeather(): CommonResult<List<DataWeather>> {
+        return runCatchingResult {
+            remoteDataSource.loadingDailyForecast()
+        }
     }
 }
