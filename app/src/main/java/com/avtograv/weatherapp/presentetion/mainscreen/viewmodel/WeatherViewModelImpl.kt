@@ -2,12 +2,12 @@ package com.avtograv.weatherapp.presentetion.mainscreen.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.avtograv.weatherapp.commonModel.CommonResult
-import com.avtograv.weatherapp.commonModel.Failure
-import com.avtograv.weatherapp.commonModel.Success
+import com.avtograv.weatherapp.common.CommonResult
+import com.avtograv.weatherapp.common.Failure
+import com.avtograv.weatherapp.common.Success
+import com.avtograv.weatherapp.common.exhaustive
 import com.avtograv.weatherapp.domain.WeatherRepository
-import com.avtograv.weatherapp.exhaustive
-import com.avtograv.weatherapp.model.DataCurrentWeather
+import com.avtograv.weatherapp.model.DataWeather
 import kotlinx.coroutines.launch
 
 
@@ -22,10 +22,10 @@ internal class WeatherViewModelImpl(repository: WeatherRepository, nameCity: Str
         }
     }
 
-    private fun handleResult(result: CommonResult<DataCurrentWeather>) {
-        when (result) {
-            is Success -> stateOutput.postValue(OptionsViewState.SuccessLoading(result.data))
-            is Failure -> stateOutput.postValue(OptionsViewState.FailedLoading(result.exception))
+    private fun handleResult(commonResult: CommonResult<List<DataWeather>>) {
+        when (commonResult) {
+            is Success -> stateOutput.postValue(OptionsViewState.SuccessLoading(commonResult.data))
+            is Failure -> stateOutput.postValue(OptionsViewState.FailedLoading(commonResult.exception))
         }.exhaustive
     }
 }

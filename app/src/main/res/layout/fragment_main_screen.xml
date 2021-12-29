@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/sky"
-    tools:context=".presentetion.main.MainActivity">
+    tools:context=".presentetion.MainActivity">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gl_top"

@@ -6,28 +6,28 @@ import androidx.recyclerview.widget.AsyncDifferConfig
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.avtograv.weatherapp.databinding.ItemNowWeatherBinding
-import com.avtograv.weatherapp.databinding.ItemThreeDayWeatherBinding
+import com.avtograv.weatherapp.databinding.ItemCurrentWeatherBinding
+import com.avtograv.weatherapp.databinding.ItemForecastWeatherBinding
 import com.avtograv.weatherapp.model.DataWeather
 
 
-class RvAdapter : ListAdapter<DataWeather, RecyclerView.ViewHolder>(
+class AdapterRecyclerView : ListAdapter<DataWeather, RecyclerView.ViewHolder>(
     AsyncDifferConfig.Builder(DiffCallback()).build()
 ) {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, position: Int): RecyclerView.ViewHolder {
         return when (position) {
             TYPE_NOW_WEATHER -> {
-                val binding = ItemNowWeatherBinding.inflate(
+                val binding = ItemCurrentWeatherBinding.inflate(
                     LayoutInflater.from(viewGroup.context), viewGroup, false
                 )
-                NowWeatherHolder(binding)
+                CurrentWeatherHolder(binding)
             }
             TYPE_WEATHER_THREE_DAYS -> {
-                val binding = ItemThreeDayWeatherBinding.inflate(
+                val binding = ItemForecastWeatherBinding.inflate(
                     LayoutInflater.from(viewGroup.context), viewGroup, false
                 )
-                ThreeDayWeatherHolder(binding)
+                ForecastWeatherHolder(binding)
             }
             else -> throw IllegalArgumentException()
         }
@@ -36,8 +36,8 @@ class RvAdapter : ListAdapter<DataWeather, RecyclerView.ViewHolder>(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = getItem(position)
         when (holder) {
-            is NowWeatherHolder -> holder.bind(item)
-            is ThreeDayWeatherHolder -> holder.bind(item)
+            is CurrentWeatherHolder -> holder.bind(item)
+            is ForecastWeatherHolder -> holder.bind(item)
         }
     }
 
@@ -53,6 +53,7 @@ class RvAdapter : ListAdapter<DataWeather, RecyclerView.ViewHolder>(
         }
     }
 
+
     private class DiffCallback : DiffUtil.ItemCallback<DataWeather>() {
         override fun areItemsTheSame(oldItem: DataWeather, newItem: DataWeather) =
             oldItem.weatherNow.id == newItem.weatherNow.id
@@ -62,7 +63,7 @@ class RvAdapter : ListAdapter<DataWeather, RecyclerView.ViewHolder>(
     }
 
 
-    inner class NowWeatherHolder(private val itemBinding: ItemNowWeatherBinding) :
+    inner class CurrentWeatherHolder(private val itemBinding: ItemCurrentWeatherBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
 
         fun bind(item: DataWeather) {
@@ -71,7 +72,7 @@ class RvAdapter : ListAdapter<DataWeather, RecyclerView.ViewHolder>(
         }
     }
 
-    inner class ThreeDayWeatherHolder(private val itemBinding: ItemThreeDayWeatherBinding) :
+    inner class ForecastWeatherHolder(private val itemBinding: ItemForecastWeatherBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
 
         fun bind(item: DataWeather) {

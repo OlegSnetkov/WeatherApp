@@ -13,22 +13,20 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.avtograv.weatherapp.R
+import com.avtograv.weatherapp.common.exhaustive
 import com.avtograv.weatherapp.databinding.FragmentMainScreenBinding
 import com.avtograv.weatherapp.di.RepositoryProvider
-import com.avtograv.weatherapp.exhaustive
-import com.avtograv.weatherapp.getLocationList
 import com.avtograv.weatherapp.presentetion.mainscreen.viewmodel.FactoryViewModel
 import com.avtograv.weatherapp.presentetion.mainscreen.viewmodel.OptionsViewState
 import com.avtograv.weatherapp.presentetion.mainscreen.viewmodel.WeatherViewModelImpl
 
 
-class MainScreenFragment : Fragment() {
+class WeatherFragment : Fragment() {
 
     private lateinit var binding: FragmentMainScreenBinding
     private var pageNumber = 0
     private var _context: ClickListener? = null
     private val loadLocation = "Ulan-Ude"
-
     private val weatherViewModel: WeatherViewModelImpl by viewModels {
         FactoryViewModel(
             (requireActivity() as RepositoryProvider).provideRepository(),
@@ -61,7 +59,6 @@ class MainScreenFragment : Fragment() {
 
         setupToolbar()
         setupUiComponents()
-        loadCurrentWeather()
     }
 
     private fun setupToolbar() {
@@ -72,7 +69,6 @@ class MainScreenFragment : Fragment() {
             titleMarginStart = 200
             title = "Fragment - ${pageNumber + 1}"
             setTitleTextColor(ContextCompat.getColor(context, R.color.colorTextPrimary))
-
             setNavigationOnClickListener {
                 _context?.letAddLocation()
             }
@@ -80,22 +76,19 @@ class MainScreenFragment : Fragment() {
     }
 
     private fun setupUiComponents() {
-        val mainAdapter = RvAdapter()
+        val adapterRecyclerView = AdapterRecyclerView()
         binding.rvWeather.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-            adapter = mainAdapter
+            adapter = adapterRecyclerView
+
         }
-        mainAdapter.submitList(getLocationList(requireContext()))
+        loadCurrentWeather(adapterRecyclerView)
     }
 
-    private fun loadCurrentWeather() {
+    private fun loadCurrentWeather(adapter: AdapterRecyclerView) {
         weatherViewModel.stateOutput.observe(viewLifecycleOwner, { state ->
             when (state) {
-                is OptionsViewState.SuccessLoading -> {
-//                   state.dataWeather.location
-//                    state.dataWeather.tempNow
-
-                }
+                is OptionsViewState.SuccessLoading -> adapter.submitList(state.weatherList)
                 is OptionsViewState.FailedLoading -> Toast.makeText(
                     requireContext(),
                     R.string.error_network_failed,
@@ -115,8 +108,8 @@ class MainScreenFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(page: Int): MainScreenFragment {
-            val fragment = MainScreenFragment()
+        fun newInstance(page: Int): WeatherFragment {
+            val fragment = WeatherFragment()
             val args = Bundle()
             args.putInt("num", page)
             fragment.arguments = args

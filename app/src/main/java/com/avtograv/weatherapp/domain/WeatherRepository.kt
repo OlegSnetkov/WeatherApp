@@ -1,8 +1,9 @@
 package com.avtograv.weatherapp.domain
 
-import com.avtograv.weatherapp.commonModel.CommonResult
+import com.avtograv.weatherapp.common.CommonResult
 import com.avtograv.weatherapp.model.DataCurrentWeather
+import com.avtograv.weatherapp.model.DataWeather
 
 interface WeatherRepository {
-    suspend fun loadWeather(findLocation: String): CommonResult<DataCurrentWeather>
+    suspend fun loadWeather(findLocation: String): CommonResult<List<DataWeather>>
 }

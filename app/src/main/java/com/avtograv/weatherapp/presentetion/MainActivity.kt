@@ -1,4 +1,4 @@
-package com.avtograv.weatherapp.presentetion.main
+package com.avtograv.weatherapp.presentetion
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -8,13 +8,13 @@ import com.avtograv.weatherapp.databinding.MainActivityBinding
 import com.avtograv.weatherapp.di.NetworkModule
 import com.avtograv.weatherapp.di.RepositoryProvider
 import com.avtograv.weatherapp.domain.WeatherRepository
-import com.avtograv.weatherapp.getLocationList
+import com.avtograv.weatherapp.common.getLocationList
 import com.avtograv.weatherapp.presentetion.locationadd.AddLocationFragment
-import com.avtograv.weatherapp.presentetion.mainscreen.view.MainScreenFragment
+import com.avtograv.weatherapp.presentetion.mainscreen.view.WeatherFragment
 import com.avtograv.weatherapp.presentetion.viewpager.DepthPageTransformer
 import com.avtograv.weatherapp.presentetion.viewpager.ViewPagerAdapter
 
-class MainActivity : AppCompatActivity(), MainScreenFragment.ClickListener,
+class MainActivity : AppCompatActivity(), WeatherFragment.ClickListener,
     AddLocationFragment.BackClickListener, RepositoryProvider {
 
     private lateinit var binding: MainActivityBinding

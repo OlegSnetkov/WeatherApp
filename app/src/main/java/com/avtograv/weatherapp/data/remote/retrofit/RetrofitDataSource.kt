@@ -1,19 +1,60 @@
 package com.avtograv.weatherapp.data.remote.retrofit
 
+import com.avtograv.weatherapp.common.PREFERENCE_LOCATION
 import com.avtograv.weatherapp.data.remote.RemoteDataSource
 import com.avtograv.weatherapp.model.DataCoordinates
 import com.avtograv.weatherapp.model.DataCurrentWeather
 import com.avtograv.weatherapp.model.DataForecastWeather
+import com.avtograv.weatherapp.model.DataWeather
+import kotlin.random.Random
 
 internal class RetrofitDataSource(private val api: ApiService) : RemoteDataSource {
 
-    override suspend fun loadingCurrentWeather(location: String): DataCurrentWeather {
+    override suspend fun loadingCurrentWeather(location: String): List<DataWeather> {
         val details = api.loadCurrentWeather(location)
-        return DataCurrentWeather(
-            id = details.cityId,
-            location = details.cityName,
-            tempNow = details.mainWeatherResponse.currentTemp.toString(),
-            aboutWeatherNow = details.weatherResponse.weatherCondition
+        return listOf(
+            DataWeather(
+                DataCurrentWeather(
+                    0,
+                    PREFERENCE_LOCATION,
+                    tempNow = Random.nextInt(-30, 30).toString(),
+                    aboutWeatherNow = "Clear"
+                ),
+                DataForecastWeather(
+                    "", "", "", ""
+                ),
+                DataForecastWeather(
+                    "", "", "", ""
+                ),
+                DataForecastWeather(
+                    "", "", "", ""
+                )
+            ),
+
+            DataWeather(
+                DataCurrentWeather(
+                    2,
+                    "", "", ""
+                ),
+                DataForecastWeather(
+                    "",
+                    "Cloudy",
+                    max_temp = Random.nextInt(-30, 30).toString(),
+                    min_temp = Random.nextInt(-30, 30).toString()
+                ),
+                DataForecastWeather(
+                    "",
+                    "Winter",
+                    max_temp = Random.nextInt(-30, 30).toString(),
+                    min_temp = Random.nextInt(-30, 30).toString()
+                ),
+                DataForecastWeather(
+                    "Little cloudy",
+                    "",
+                    max_temp = Random.nextInt(-30, 30).toString(),
+                    min_temp = Random.nextInt(-30, 30).toString()
+                )
+            )
         )
     }
 

@@ -1,13 +1,12 @@
-package com.avtograv.weatherapp
+package com.avtograv.weatherapp.common
 
 import android.content.Context
 import androidx.preference.PreferenceManager
-import com.avtograv.weatherapp.model.DataWeather
 import com.avtograv.weatherapp.model.DataCurrentWeather
 import com.avtograv.weatherapp.model.DataForecastWeather
+import com.avtograv.weatherapp.model.DataWeather
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-
 import kotlin.random.Random
 
 
@@ -34,31 +33,20 @@ fun getLocationList(context: Context): List<DataWeather> {
                     aboutWeatherNow = "Clear"
                 ),
                 DataForecastWeather(
-                    "",
-                    "",
-                    "",
-                    ""
+                    "", "", "", ""
                 ),
                 DataForecastWeather(
-                    "",
-                    "",
-                    "",
-                    ""
+                    "", "", "", ""
                 ),
                 DataForecastWeather(
-                    "",
-                    "",
-                    "",
-                    ""
+                    "", "", "", ""
                 )
             ),
 
             DataWeather(
                 DataCurrentWeather(
                     2,
-                    "",
-                    "",
-                    ""
+                    "", "", ""
                 ),
                 DataForecastWeather(
                     "",

@@ -1,4 +1,4 @@
-package com.avtograv.weatherapp.commonModel
+package com.avtograv.weatherapp.common
 
 
 sealed class CommonResult<out T>
