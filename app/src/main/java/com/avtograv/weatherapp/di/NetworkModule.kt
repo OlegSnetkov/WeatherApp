@@ -60,3 +60,7 @@ class ApiKeyInterceptor : Interceptor {
         private const val APP_ID = "aeff0f626d4160211be7d9de79c2cca9"
     }
 }
+
+
+// https://api.openweathermap.org/data/2.5/onecall?lat=51.7885513306&lon=107.681968689&lang=RU&units=metric&appid=aeff0f626d4160211be7d9de79c2cca9
+// https://api.openweathermap.org/geo/1.0/direct?q=ulan-ude,ru&limit=1&appid=aeff0f626d4160211be7d9de79c2cca9

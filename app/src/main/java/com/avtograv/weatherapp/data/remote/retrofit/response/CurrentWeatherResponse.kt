@@ -1,11 +1,12 @@
 package com.avtograv.weatherapp.data.remote.retrofit.response
 
+import com.avtograv.weatherapp.data.remote.retrofit.response.current.*
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 
 @Serializable
-class CommonWeatherResponse(
+class CurrentWeatherResponse(
     @SerialName("coord") val coordinatesResponse: CoordinatesResponse,
     @SerialName("weather") val weatherResponse: List<WeatherResponse>,
     @SerialName("base") val baseResponse: String,

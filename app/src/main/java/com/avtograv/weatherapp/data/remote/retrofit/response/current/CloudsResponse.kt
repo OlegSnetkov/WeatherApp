@@ -1,4 +1,4 @@
-package com.avtograv.weatherapp.data.remote.retrofit.response
+package com.avtograv.weatherapp.data.remote.retrofit.response.current
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
