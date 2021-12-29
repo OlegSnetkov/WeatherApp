@@ -1,7 +1,9 @@
 package com.avtograv.weatherapp.presentetion.mainscreen.view
 
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,23 +16,25 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.avtograv.weatherapp.R
 import com.avtograv.weatherapp.common.exhaustive
+import com.avtograv.weatherapp.common.getLocationList
 import com.avtograv.weatherapp.databinding.FragmentMainScreenBinding
 import com.avtograv.weatherapp.di.RepositoryProvider
 import com.avtograv.weatherapp.presentetion.mainscreen.viewmodel.FactoryViewModel
 import com.avtograv.weatherapp.presentetion.mainscreen.viewmodel.OptionsViewState
 import com.avtograv.weatherapp.presentetion.mainscreen.viewmodel.WeatherViewModelImpl
-
+import kotlin.properties.Delegates
 
 class WeatherFragment : Fragment() {
 
+
+
     private lateinit var binding: FragmentMainScreenBinding
-    private var pageNumber = 0
+    private var pageNumber by Delegates.notNull<Int>()
     private var _context: ClickListener? = null
-    private val loadLocation = "Ulan-Ude"
     private val weatherViewModel: WeatherViewModelImpl by viewModels {
         FactoryViewModel(
             (requireActivity() as RepositoryProvider).provideRepository(),
-            loadLocation
+            (getLocationList(requireContext()).first())
         )
     }
 
@@ -43,7 +47,6 @@ class WeatherFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         pageNumber = if (arguments != null) requireArguments().getInt("num") else 0
-
     }
 
     override fun onCreateView(
@@ -89,11 +92,14 @@ class WeatherFragment : Fragment() {
         weatherViewModel.stateOutput.observe(viewLifecycleOwner, { state ->
             when (state) {
                 is OptionsViewState.SuccessLoading -> adapter.submitList(state.weatherList)
-                is OptionsViewState.FailedLoading -> Toast.makeText(
-                    requireContext(),
-                    R.string.error_network_failed,
-                    Toast.LENGTH_SHORT
-                ).show()
+                is OptionsViewState.FailedLoading -> {
+                    Log.e(TAG, "MainTag", state.exception)
+                    Toast.makeText(
+                        requireContext(),
+                        R.string.error_network_failed,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }.exhaustive
         })
     }

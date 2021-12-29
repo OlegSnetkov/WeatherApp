@@ -1,6 +1,5 @@
 package com.avtograv.weatherapp.data.remote.retrofit
 
-import com.avtograv.weatherapp.common.PREFERENCE_LOCATION
 import com.avtograv.weatherapp.data.remote.RemoteDataSource
 import com.avtograv.weatherapp.model.DataCoordinates
 import com.avtograv.weatherapp.model.DataCurrentWeather
@@ -16,9 +15,9 @@ internal class RetrofitDataSource(private val api: ApiService) : RemoteDataSourc
             DataWeather(
                 DataCurrentWeather(
                     0,
-                    PREFERENCE_LOCATION,
-                    tempNow = Random.nextInt(-30, 30).toString(),
-                    aboutWeatherNow = "Clear"
+                    details.cityName,
+                    details.mainWeatherResponse.currentTemp.toInt().toString(),
+                    details.weatherResponse[0].weatherCondition
                 ),
                 DataForecastWeather(
                     "", "", "", ""

@@ -18,19 +18,19 @@ class MainActivity : AppCompatActivity(), WeatherFragment.ClickListener,
     AddLocationFragment.BackClickListener, RepositoryProvider {
 
     private lateinit var binding: MainActivityBinding
-    private var itemCount = 1
     private val remoteDataSource = RetrofitDataSource(NetworkModule().api)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        itemCount = getLocationList(this).size / 2
-
         binding = MainActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.viewpager.setPageTransformer(DepthPageTransformer())
-        binding.viewpager.adapter = ViewPagerAdapter(this, SELECT_MAIN_SCREEN, itemCount)
+        binding.viewpager.adapter = ViewPagerAdapter(
+            this, SELECT_MAIN_SCREEN,
+            getLocationList(this).size
+        )
     }
 
     override fun provideRepository(): WeatherRepository = RepositoryImpl(remoteDataSource)
@@ -40,7 +40,8 @@ class MainActivity : AppCompatActivity(), WeatherFragment.ClickListener,
     }
 
     override fun onBackMainScreen() {
-        binding.viewpager.adapter = ViewPagerAdapter(this, SELECT_MAIN_SCREEN, itemCount)
+        binding.viewpager.adapter =
+            ViewPagerAdapter(this, SELECT_MAIN_SCREEN, getLocationList(this).size)
     }
 
     override fun onBackPressed() {

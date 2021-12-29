@@ -7,5 +7,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 class CoordinatesResponse(
     @SerialName("lon") val longitude: Double,
-    @SerialName("latitude") val feelsLike: Double
+    @SerialName("lat") val latitude: Double
 )
