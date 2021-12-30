@@ -4,6 +4,7 @@ import com.avtograv.weatherapp.common.CommonResult
 import com.avtograv.weatherapp.common.runCatchingResult
 import com.avtograv.weatherapp.data.remote.RemoteDataSource
 import com.avtograv.weatherapp.domain.WeatherRepository
+import com.avtograv.weatherapp.model.DataLatLon
 import com.avtograv.weatherapp.model.DataWeather
 
 
@@ -16,5 +17,9 @@ class RepositoryImpl(private val remoteDataSource: RemoteDataSource) : WeatherRe
         return runCatchingResult {
             remoteDataSource.loadingDailyForecast(latLocation, lonLocation)
         }
+    }
+
+    override suspend fun loadLatLon(nameLocation: String): CommonResult<DataLatLon> {
+        return runCatchingResult { remoteDataSource.getCoordinates(nameLocation) }
     }
 }

@@ -19,8 +19,8 @@ import com.avtograv.weatherapp.common.exhaustive
 import com.avtograv.weatherapp.common.getLocationList
 import com.avtograv.weatherapp.databinding.FragmentMainScreenBinding
 import com.avtograv.weatherapp.di.RepositoryProvider
-import com.avtograv.weatherapp.presentetion.weatherfragment.viewmodel.FactoryViewModel
-import com.avtograv.weatherapp.presentetion.weatherfragment.viewmodel.OptionsViewState
+import com.avtograv.weatherapp.presentetion.weatherfragment.viewmodel.WeatherFactoryViewModel
+import com.avtograv.weatherapp.presentetion.weatherfragment.viewmodel.WeatherOptionsViewState
 import com.avtograv.weatherapp.presentetion.weatherfragment.viewmodel.WeatherViewModelImpl
 import kotlin.properties.Delegates
 
@@ -31,7 +31,7 @@ class WeatherFragment : Fragment() {
     private var pageNumber by Delegates.notNull<Int>()
     private var _context: ClickListener? = null
     private val weatherViewModel: WeatherViewModelImpl by viewModels {
-        FactoryViewModel(
+        WeatherFactoryViewModel(
             (requireActivity() as RepositoryProvider).provideRepository(),
             //(getLocationList(requireContext()).first())
             "51.788898468", "107.682502747"
@@ -93,9 +93,9 @@ class WeatherFragment : Fragment() {
     private fun loadCurrentWeather(adapter: AdapterRecyclerView) {
         weatherViewModel.stateOutput.observe(viewLifecycleOwner, { state ->
             when (state) {
-                is OptionsViewState.SuccessLoading -> adapter.submitList(state.weatherList)
-                is OptionsViewState.FailedLoading -> {
-                    Log.e(TAG, "MainTag", state.exception)
+                is WeatherOptionsViewState.SuccessLoading -> adapter.submitList(state.weatherList)
+                is WeatherOptionsViewState.FailedLoading -> {
+                    Log.e(TAG, "WeatherLocException", state.exception)
                     Toast.makeText(
                         requireContext(),
                         R.string.error_network_failed,

@@ -4,7 +4,7 @@ import android.icu.text.SimpleDateFormat
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.avtograv.weatherapp.data.remote.RemoteDataSource
-import com.avtograv.weatherapp.model.DataCoordinates
+import com.avtograv.weatherapp.model.DataLatLon
 import com.avtograv.weatherapp.model.DataCurrentWeather
 import com.avtograv.weatherapp.model.DataForecastWeather
 import com.avtograv.weatherapp.model.DataWeather
@@ -76,8 +76,8 @@ internal class RetrofitDataSource(private val api: ApiService) : RemoteDataSourc
     }
 
 
-    override suspend fun getCoordinates(nameLocation: String): DataCoordinates {
-        return DataCoordinates(
+    override suspend fun getCoordinates(nameLocation: String): DataLatLon {
+        return DataLatLon(
             locationName = "",
             latLocation = "",
             lonLocation = ""

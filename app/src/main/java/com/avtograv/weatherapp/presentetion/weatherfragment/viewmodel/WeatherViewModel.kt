@@ -5,5 +5,5 @@ import androidx.lifecycle.ViewModel
 
 
 internal abstract class WeatherViewModel : ViewModel() {
-    abstract val stateOutput: LiveData<OptionsViewState>
+    abstract val stateOutput: LiveData<WeatherOptionsViewState>
 }

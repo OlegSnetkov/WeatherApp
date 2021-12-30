@@ -1,8 +1,8 @@
-package com.avtograv.weatherapp.presentetion.viewpager
+package com.avtograv.weatherapp.presentetion.weatherfragment.viewpager
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.avtograv.weatherapp.presentetion.locationadd.AddLocationFragment
+import com.avtograv.weatherapp.presentetion.findlocation.view.FindLocationFragment
 import com.avtograv.weatherapp.presentetion.MainActivity
 import com.avtograv.weatherapp.presentetion.weatherfragment.view.WeatherFragment
 
@@ -20,6 +20,6 @@ class ViewPagerAdapter(
     override fun createFragment(position: Int): Fragment {
         return if (selectionFragment) {
             WeatherFragment.newInstance(position)
-        } else AddLocationFragment()
+        } else FindLocationFragment()
     }
 }

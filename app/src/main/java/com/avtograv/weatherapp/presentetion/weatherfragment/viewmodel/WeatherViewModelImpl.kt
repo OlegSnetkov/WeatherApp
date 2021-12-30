@@ -15,10 +15,9 @@ internal class WeatherViewModelImpl(
     repository: WeatherRepository,
     latLocation: String,
     lonLocation: String
-) :
-    WeatherViewModel() {
+) : WeatherViewModel() {
 
-    override val stateOutput = MutableLiveData<OptionsViewState>()
+    override val stateOutput = MutableLiveData<WeatherOptionsViewState>()
 
     init {
         viewModelScope.launch {
@@ -28,8 +27,8 @@ internal class WeatherViewModelImpl(
 
     private fun handleResult(commonResult: CommonResult<List<DataWeather>>) {
         when (commonResult) {
-            is Success -> stateOutput.postValue(OptionsViewState.SuccessLoading(commonResult.data))
-            is Failure -> stateOutput.postValue(OptionsViewState.FailedLoading(commonResult.exception))
+            is Success -> stateOutput.postValue(WeatherOptionsViewState.SuccessLoading(commonResult.data))
+            is Failure -> stateOutput.postValue(WeatherOptionsViewState.FailedLoading(commonResult.exception))
         }.exhaustive
     }
 }

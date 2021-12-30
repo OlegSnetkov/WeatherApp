@@ -9,13 +9,13 @@ import com.avtograv.weatherapp.di.NetworkModule
 import com.avtograv.weatherapp.di.RepositoryProvider
 import com.avtograv.weatherapp.domain.WeatherRepository
 import com.avtograv.weatherapp.common.getLocationList
-import com.avtograv.weatherapp.presentetion.locationadd.AddLocationFragment
+import com.avtograv.weatherapp.presentetion.findlocation.view.FindLocationFragment
 import com.avtograv.weatherapp.presentetion.weatherfragment.view.WeatherFragment
-import com.avtograv.weatherapp.presentetion.viewpager.DepthPageTransformer
-import com.avtograv.weatherapp.presentetion.viewpager.ViewPagerAdapter
+import com.avtograv.weatherapp.presentetion.weatherfragment.viewpager.DepthPageTransformer
+import com.avtograv.weatherapp.presentetion.weatherfragment.viewpager.ViewPagerAdapter
 
 class MainActivity : AppCompatActivity(), WeatherFragment.ClickListener,
-    AddLocationFragment.BackClickListener, RepositoryProvider {
+    FindLocationFragment.BackClickListener, RepositoryProvider {
 
     private lateinit var binding: MainActivityBinding
     private val remoteDataSource = RetrofitDataSource(NetworkModule().api)
