@@ -2,7 +2,7 @@ package com.avtograv.weatherapp.model
 
 
 data class DataWeather(
-    val weatherNow: DataCurrentWeather,
+    val currentWeather: DataCurrentWeather,
     val weatherToday: DataForecastWeather,
     val weatherTomorrow: DataForecastWeather,
     val weatherAfterTomorrow: DataForecastWeather
@@ -12,7 +12,8 @@ data class DataCurrentWeather(
     val id: Int,
     val location: String,
     val tempNow: String,
-    val aboutWeatherNow: String
+    val aboutWeatherNow: String,
+    val feelsLike: String
 )
 
 data class DataForecastWeather(

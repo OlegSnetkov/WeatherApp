@@ -6,12 +6,7 @@ import com.avtograv.weatherapp.model.DataWeather
 
 interface RemoteDataSource {
 
-//    suspend fun loadingCurrentWeather(location: String): List<DataWeather>
-
-//    suspend fun loadingDailyForecast(latLocation: String, lonLocation: String):
-//            List<DataForecastWeather>
-
-    suspend fun loadingDailyForecast():
+    suspend fun loadingDailyForecast(latLocation: String, lonLocation: String):
             List<DataWeather>
 
     suspend fun getCoordinates(nameLocation: String): DataCoordinates

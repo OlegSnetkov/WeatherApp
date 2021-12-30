@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.avtograv.weatherapp.presentetion.locationadd.AddLocationFragment
 import com.avtograv.weatherapp.presentetion.MainActivity
-import com.avtograv.weatherapp.presentetion.mainscreen.view.WeatherFragment
+import com.avtograv.weatherapp.presentetion.weatherfragment.view.WeatherFragment
 
 
 class ViewPagerAdapter(

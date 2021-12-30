@@ -1,4 +1,4 @@
-package com.avtograv.weatherapp.presentetion.mainscreen.view
+package com.avtograv.weatherapp.presentetion.weatherfragment.view
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -56,7 +56,7 @@ class AdapterRecyclerView : ListAdapter<DataWeather, RecyclerView.ViewHolder>(
 
     private class DiffCallback : DiffUtil.ItemCallback<DataWeather>() {
         override fun areItemsTheSame(oldItem: DataWeather, newItem: DataWeather) =
-            oldItem.weatherNow.id == newItem.weatherNow.id
+            oldItem.currentWeather.id == newItem.currentWeather.id
 
         override fun areContentsTheSame(oldItem: DataWeather, newItem: DataWeather) =
             oldItem == newItem
@@ -67,8 +67,9 @@ class AdapterRecyclerView : ListAdapter<DataWeather, RecyclerView.ViewHolder>(
         RecyclerView.ViewHolder(itemBinding.root) {
 
         fun bind(item: DataWeather) {
-            itemBinding.tvTempNow.text = item.weatherNow.tempNow
-            itemBinding.tvAboutWeatherNow.text = item.weatherNow.aboutWeatherNow
+            itemBinding.tvTempNow.text = item.currentWeather.tempNow
+            itemBinding.tvAboutWeatherNow.text = item.currentWeather.aboutWeatherNow
+            "AQI  ${item.currentWeather.feelsLike}".also { itemBinding.button.text = it }
         }
     }
 

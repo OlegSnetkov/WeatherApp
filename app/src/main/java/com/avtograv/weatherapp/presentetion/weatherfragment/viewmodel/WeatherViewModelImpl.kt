@@ -1,4 +1,4 @@
-package com.avtograv.weatherapp.presentetion.mainscreen.viewmodel
+package com.avtograv.weatherapp.presentetion.weatherfragment.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -11,16 +11,18 @@ import com.avtograv.weatherapp.model.DataWeather
 import kotlinx.coroutines.launch
 
 
-//internal class WeatherViewModelImpl(repository: WeatherRepository, nameCity: String) :
-internal class WeatherViewModelImpl(repository: WeatherRepository) :
+internal class WeatherViewModelImpl(
+    repository: WeatherRepository,
+    latLocation: String,
+    lonLocation: String
+) :
     WeatherViewModel() {
 
     override val stateOutput = MutableLiveData<OptionsViewState>()
 
     init {
         viewModelScope.launch {
-//            handleResult(repository.loadWeather(nameCity))
-            handleResult(repository.loadWeather())
+            handleResult(repository.loadWeather(latLocation, lonLocation))
         }
     }
 

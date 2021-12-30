@@ -10,7 +10,7 @@ import com.avtograv.weatherapp.di.RepositoryProvider
 import com.avtograv.weatherapp.domain.WeatherRepository
 import com.avtograv.weatherapp.common.getLocationList
 import com.avtograv.weatherapp.presentetion.locationadd.AddLocationFragment
-import com.avtograv.weatherapp.presentetion.mainscreen.view.WeatherFragment
+import com.avtograv.weatherapp.presentetion.weatherfragment.view.WeatherFragment
 import com.avtograv.weatherapp.presentetion.viewpager.DepthPageTransformer
 import com.avtograv.weatherapp.presentetion.viewpager.ViewPagerAdapter
 

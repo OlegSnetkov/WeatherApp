@@ -1,4 +1,4 @@
-package com.avtograv.weatherapp.presentetion.mainscreen.view
+package com.avtograv.weatherapp.presentetion.weatherfragment.view
 
 import android.content.ContentValues.TAG
 import android.content.Context
@@ -19,14 +19,13 @@ import com.avtograv.weatherapp.common.exhaustive
 import com.avtograv.weatherapp.common.getLocationList
 import com.avtograv.weatherapp.databinding.FragmentMainScreenBinding
 import com.avtograv.weatherapp.di.RepositoryProvider
-import com.avtograv.weatherapp.presentetion.mainscreen.viewmodel.FactoryViewModel
-import com.avtograv.weatherapp.presentetion.mainscreen.viewmodel.OptionsViewState
-import com.avtograv.weatherapp.presentetion.mainscreen.viewmodel.WeatherViewModelImpl
+import com.avtograv.weatherapp.presentetion.weatherfragment.viewmodel.FactoryViewModel
+import com.avtograv.weatherapp.presentetion.weatherfragment.viewmodel.OptionsViewState
+import com.avtograv.weatherapp.presentetion.weatherfragment.viewmodel.WeatherViewModelImpl
 import kotlin.properties.Delegates
 
+
 class WeatherFragment : Fragment() {
-
-
 
     private lateinit var binding: FragmentMainScreenBinding
     private var pageNumber by Delegates.notNull<Int>()
@@ -35,6 +34,7 @@ class WeatherFragment : Fragment() {
         FactoryViewModel(
             (requireActivity() as RepositoryProvider).provideRepository(),
             //(getLocationList(requireContext()).first())
+            "51.788898468", "107.682502747"
         )
     }
 
@@ -70,7 +70,9 @@ class WeatherFragment : Fragment() {
         binding.toolbar.apply {
             setNavigationIcon(R.drawable.ic_plus_white)
             titleMarginStart = 200
-            title = "Fragment - ${pageNumber + 1}"
+//            title = "Fragment - ${pageNumber + 1}"
+            title = (getLocationList(requireContext()).first())
+
             setTitleTextColor(ContextCompat.getColor(context, R.color.colorTextPrimary))
             setNavigationOnClickListener {
                 _context?.letAddLocation()

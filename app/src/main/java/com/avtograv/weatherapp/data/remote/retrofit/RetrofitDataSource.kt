@@ -9,15 +9,17 @@ import com.avtograv.weatherapp.model.DataWeather
 
 internal class RetrofitDataSource(private val api: ApiService) : RemoteDataSource {
 
-    override suspend fun loadingDailyForecast(): List<DataWeather> {
-        val details = api.loadForecastWeather()
+    override suspend fun loadingDailyForecast(latLocation: String, lonLocation: String):
+            List<DataWeather> {
+        val details = api.loadForecastWeather(latLocation, lonLocation)
         return listOf(
             DataWeather(
                 DataCurrentWeather(
                     0,
                     "",
                     details.current.temp?.toInt().toString(),
-                    details.current.weather[0].description
+                    details.current.weather[0].main,
+                    details.current.feelsLike.toInt().toString()
                 ),
                 DataForecastWeather(
                     "", "", "", ""
@@ -33,7 +35,7 @@ internal class RetrofitDataSource(private val api: ApiService) : RemoteDataSourc
             DataWeather(
                 DataCurrentWeather(
                     1,
-                    "", "", ""
+                    "", "", "", ""
                 ),
                 DataForecastWeather(
                     "",
@@ -57,9 +59,8 @@ internal class RetrofitDataSource(private val api: ApiService) : RemoteDataSourc
         )
     }
 
-    //TODO
+
     override suspend fun getCoordinates(nameLocation: String): DataCoordinates {
-        val details = api.loadCoordinatesByLocation(nameLocation)
         return DataCoordinates(
             locationName = "",
             latLocation = "",

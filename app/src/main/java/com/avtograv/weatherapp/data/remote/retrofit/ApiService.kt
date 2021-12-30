@@ -1,6 +1,5 @@
 package com.avtograv.weatherapp.data.remote.retrofit
 
-import com.avtograv.weatherapp.data.remote.retrofit.response.CurrentWeatherResponse
 import com.avtograv.weatherapp.data.remote.retrofit.response.GeocodingResponse
 import com.avtograv.weatherapp.data.remote.retrofit.response.OneCallResponse
 import retrofit2.http.GET
@@ -9,17 +8,10 @@ import retrofit2.http.Query
 
 interface ApiService {
 
-    @GET("data/2.5/weather")
-    suspend fun loadCurrentWeather(
-        @Query("q") location: String = "",
-        @Query("lang") lang: String = "RU",
-        @Query("units") units: String = "metric"
-    ): CurrentWeatherResponse
-
     @GET("data/2.5/onecall")
     suspend fun loadForecastWeather(
-        @Query("lat") latitude: String = "51.788898468",
-        @Query("lon") longitude: String = "107.682502747",
+        @Query("lat") latitude: String,
+        @Query("lon") longitude: String,
         @Query("exclude") exclude: String = "minutely,hourly,alerts",
         @Query("lang") lang: String = "RU",
         @Query("units") units: String = "metric"

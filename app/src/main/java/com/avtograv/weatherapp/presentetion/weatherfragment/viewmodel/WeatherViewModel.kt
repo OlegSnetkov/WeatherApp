@@ -1,4 +1,4 @@
-package com.avtograv.weatherapp.presentetion.mainscreen.viewmodel
+package com.avtograv.weatherapp.presentetion.weatherfragment.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
