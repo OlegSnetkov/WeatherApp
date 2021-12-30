@@ -15,7 +15,7 @@ data class DailyItem(
     @SerialName("clouds") val clouds: Int? = null,
     @SerialName("feels_like") val feelsLike: FeelsLike? = null,
     @SerialName("wind_gust") val windGust: Double? = null,
-    @SerialName("dt") val dt: Int? = null,
+    @SerialName("dt") val time: Int,
     @SerialName("pop") val pop: Double? = null,
     @SerialName("wind_deg") val windDeg: Int? = null,
     @SerialName("dew_point") val dewPoint: Double? = null,

@@ -191,7 +191,8 @@
             style="@style/item_specificity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/text_after_tomorrow" />
+            tools:text="@string/text_after_tomorrow"
+            tools:textColor="@color/colorPrimary" />
 
         <TextView
             android:id="@+id/tv_about_weather_after_tomorrow"

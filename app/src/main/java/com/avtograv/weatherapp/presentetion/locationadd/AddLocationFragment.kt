@@ -2,6 +2,8 @@ package com.avtograv.weatherapp.presentetion.locationadd
 
 import android.content.Context
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,6 +37,8 @@ class AddLocationFragment : Fragment() {
             _context?.onBackMainScreen()
         }
     }
+
+
 
     override fun onDetach() {
         _context = null

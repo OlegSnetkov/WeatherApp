@@ -9,7 +9,7 @@ data class Current(
     @SerialName("sunrise") val sunrise: Int? = null,
     @SerialName("temp") val temp: Double? = null,
     @SerialName("visibility") val visibility: Int? = null,
-    @SerialName("uvi") val uvi: Int? = null,
+    @SerialName("uvi") val uvi: Double? = null,
     @SerialName("pressure") val pressure: Int? = null,
     @SerialName("clouds") val clouds: Int? = null,
     @SerialName("feels_like") val feelsLike: Double,

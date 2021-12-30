@@ -85,6 +85,7 @@ class AdapterRecyclerView : ListAdapter<DataWeather, RecyclerView.ViewHolder>(
             itemBinding.rvTomorrowTempMax.text = item.weatherTomorrow.max_temp
             itemBinding.rvTomorrowTempMin.text = item.weatherTomorrow.min_temp
 
+            itemBinding.tvTextAfterTomorrow.text = item.weatherAfterTomorrow.dayAfterTomorrow
             itemBinding.tvAboutWeatherAfterTomorrow.text = item.weatherAfterTomorrow.text_weather
             itemBinding.rvAfterTomorrowTempMax.text = item.weatherAfterTomorrow.max_temp
             itemBinding.rvAfterTomorrowTempMin.text = item.weatherAfterTomorrow.min_temp

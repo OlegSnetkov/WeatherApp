@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cl_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_weather_fragment">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gl_top_top"
@@ -50,7 +51,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/space_normal"
         android:text="@string/manage_cities"
-        android:textColor="@color/colorTextHintSecondary"
         android:textSize="@dimen/text_medium"
         app:layout_constraintStart_toStartOf="@+id/gl_left"
         app:layout_constraintTop_toBottomOf="@+id/iv_arrow_left" />
@@ -78,7 +78,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/space_big"
                 android:fontFamily="sans-serif"
-                android:textColor="@color/colorTextPrimary"
                 android:textSize="15sp" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
