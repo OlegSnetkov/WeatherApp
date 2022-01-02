@@ -4,15 +4,14 @@ import android.icu.text.SimpleDateFormat
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.avtograv.weatherapp.data.remote.RemoteDataSource
-import com.avtograv.weatherapp.model.DataLatLon
 import com.avtograv.weatherapp.model.DataCurrentWeather
 import com.avtograv.weatherapp.model.DataForecastWeather
+import com.avtograv.weatherapp.model.DataLatLon
 import com.avtograv.weatherapp.model.DataWeather
 import java.util.*
 
 
 internal class RetrofitDataSource(private val api: ApiService) : RemoteDataSource {
-
 
     @RequiresApi(Build.VERSION_CODES.N)
     fun getDateTime(unixSeconds: Int): String {
@@ -75,12 +74,14 @@ internal class RetrofitDataSource(private val api: ApiService) : RemoteDataSourc
         )
     }
 
-
-    override suspend fun getCoordinates(nameLocation: String): DataLatLon {
-        return DataLatLon(
-            locationName = "",
-            latLocation = "",
-            lonLocation = ""
+    override suspend fun getCoordinates(nameLocation: String): List<DataLatLon> {
+        val details = api.loadCoordinatesByLocation(nameLocation)
+        return listOf(
+            DataLatLon(
+                details[0].name,
+                details[0].lat.toString(),
+                details[0].lon.toString()
+            )
         )
     }
 }

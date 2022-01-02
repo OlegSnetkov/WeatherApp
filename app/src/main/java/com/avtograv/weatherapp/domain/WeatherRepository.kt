@@ -10,5 +10,5 @@ interface WeatherRepository {
     suspend fun loadWeather(latLocation: String, lonLocation: String):
             CommonResult<List<DataWeather>>
 
-    suspend fun loadLatLon(nameLocation: String): CommonResult<DataLatLon>
+    suspend fun loadLatLon(nameLocation: String): CommonResult<List<DataLatLon>>
 }

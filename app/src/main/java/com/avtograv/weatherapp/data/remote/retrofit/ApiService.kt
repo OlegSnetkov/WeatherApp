@@ -1,6 +1,6 @@
 package com.avtograv.weatherapp.data.remote.retrofit
 
-import com.avtograv.weatherapp.data.remote.retrofit.response.GeocodingResponse
+import com.avtograv.weatherapp.data.remote.retrofit.response.GeoCodingResponse
 import com.avtograv.weatherapp.data.remote.retrofit.response.OneCallResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -28,9 +28,7 @@ interface ApiService {
         @Query("q") location: String = "",
         @Query("lang") lang: String = "RU",
         @Query("limit") numLocation: String = "1"
-    ): GeocodingResponse
-
-
+    ): List<GeoCodingResponse>
 }
 
 // http://api.openweathermap.org/data/2.5/weather?q=Ulan-Ude,&lang=Ru&units=metric&appid=aeff0f626d4160211be7d9de79c2cca9

@@ -9,5 +9,5 @@ interface RemoteDataSource {
     suspend fun loadingDailyForecast(latLocation: String, lonLocation: String):
             List<DataWeather>
 
-    suspend fun getCoordinates(nameLocation: String): DataLatLon
+    suspend fun getCoordinates(nameLocation: String): List<DataLatLon>
 }

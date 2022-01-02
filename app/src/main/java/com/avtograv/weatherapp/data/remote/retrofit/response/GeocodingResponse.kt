@@ -3,104 +3,41 @@ package com.avtograv.weatherapp.data.remote.retrofit.response
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+
 @Serializable
-data class GeocodingResponse(
-    @SerialName("GeocodingResponse")
-    val geocodingResponse: List<GeocodingResponseItem?>? = null
+data class GeoCodingResponse(
+    @SerialName("name") val name: String,
+    @SerialName("local_names") val local_names: LocalNames,
+    @SerialName("lat") val lat: Double,
+    @SerialName("lon") val lon: Double,
+    @SerialName("country") val country: String,
+    @SerialName("state") val state: String
 )
 
 @Serializable
 data class LocalNames(
-    @SerialName("de")
-    val de: String? = null,
-
-    @SerialName("mn")
-    val mn: String? = null,
-
-    @SerialName("ce")
-    val ce: String? = null,
-
-    @SerialName("ru")
-    val ru: String? = null,
-
-    @SerialName("be")
-    val be: String? = null,
-
-    @SerialName("os")
-    val os: String? = null,
-
-    @SerialName("feature_name")
-    val featureName: String? = null,
-
-    @SerialName("ko")
-    val ko: String? = null,
-
-    @SerialName("lt")
-    val lt: String? = null,
-
-    @SerialName("en")
-    val en: String? = null,
-
-    @SerialName("it")
-    val it: String? = null,
-
-    @SerialName("fr")
-    val fr: String? = null,
-
-    @SerialName("zh")
-    val zh: String? = null,
-
-    @SerialName("et")
-    val et: String? = null,
-
-    @SerialName("cs")
-    val cs: String? = null,
-
-    @SerialName("la")
-    val la: String? = null,
-
-    @SerialName("ka")
-    val ka: String? = null,
-
-    @SerialName("uk")
-    val uk: String? = null,
-
-    @SerialName("ja")
-    val ja: String? = null,
-
-    @SerialName("sk")
-    val sk: String? = null,
-
-    @SerialName("az")
-    val az: String? = null,
-
-    @SerialName("pl")
-    val pl: String? = null,
-
-    @SerialName("ascii")
-    val ascii: String? = null,
-
-    @SerialName("nl")
-    val nl: String? = null
-)
-
-@Serializable
-data class GeocodingResponseItem(
-    @SerialName("local_names")
-    val localNames: LocalNames? = null,
-
-    @SerialName("country")
-    val country: String? = null,
-
-    @SerialName("name")
-    val name: String? = null,
-
-    @SerialName("lon")
-    val lon: Double? = null,
-
-    @SerialName("state")
-    val state: String? = null,
-
-    @SerialName("lat")
-    val lat: Double? = null
+    @SerialName("et") val et: String,
+    @SerialName("ja") val ja: String,
+    @SerialName("feature_name") val feature_name: String,
+    @SerialName("pl") val pl: String,
+    @SerialName("de") val de: String,
+    @SerialName("ka") val ka: String,
+    @SerialName("zh") val zh: String,
+    @SerialName("uk") val uk: String,
+    @SerialName("mn") val mn: String,
+    @SerialName("os") val os: String,
+    @SerialName("la") val la: String,
+    @SerialName("lt") val lt: String,
+    @SerialName("sk") val sk: String,
+    @SerialName("nl") val nl: String,
+    @SerialName("en") val en: String,
+    @SerialName("be") val be: String,
+    @SerialName("it") val it: String,
+    @SerialName("az") val az: String,
+    @SerialName("ascii") val ascii: String,
+    @SerialName("cs") val cs: String,
+    @SerialName("ce") val ce: String,
+    @SerialName("ko") val ko: String,
+    @SerialName("fr") val fr: String,
+    @SerialName("ru") val ru: String
 )

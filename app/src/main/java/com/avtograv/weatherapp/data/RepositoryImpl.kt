@@ -19,7 +19,7 @@ class RepositoryImpl(private val remoteDataSource: RemoteDataSource) : WeatherRe
         }
     }
 
-    override suspend fun loadLatLon(nameLocation: String): CommonResult<DataLatLon> {
+    override suspend fun loadLatLon(nameLocation: String): CommonResult<List<DataLatLon>> {
         return runCatchingResult { remoteDataSource.getCoordinates(nameLocation) }
     }
 }

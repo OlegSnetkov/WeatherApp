@@ -5,7 +5,7 @@ import com.avtograv.weatherapp.model.DataLatLon
 
 internal sealed class FindLocationViewState {
 
-    data class SuccessLoading(internal val dataLatLon: DataLatLon) :
+    data class SuccessLoading(internal val dataLatLon: List<DataLatLon>) :
         FindLocationViewState()
 
     data class FailedLoading(val exception: Throwable) : FindLocationViewState()

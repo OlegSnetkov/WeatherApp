@@ -16,20 +16,20 @@ internal class FindLocationViewModelImpl(private val repository: WeatherReposito
 
     override val stateOutput = MutableLiveData<FindLocationViewState>()
 
-    fun loadCoordinates(locationName: String) {
+    init {
         viewModelScope.launch {
-            handleResult(repository.loadLatLon(locationName))
+            handleResult(repository.loadLatLon("ulan-ude"))
         }
     }
 
-    private fun handleResult(commonResult: CommonResult<DataLatLon>) {
+    private fun handleResult(commonResult: CommonResult<List<DataLatLon>>) {
         when (commonResult) {
             is Success -> handleLocationLoadResult(commonResult.data)
             is Failure -> stateOutput.postValue(FindLocationViewState.FailedLoading(commonResult.exception))
         }.exhaustive
     }
 
-    private fun handleLocationLoadResult(dataLatLon: DataLatLon?) {
+    private fun handleLocationLoadResult(dataLatLon: List<DataLatLon>?) {
         if (dataLatLon != null) {
             stateOutput.postValue(FindLocationViewState.SuccessLoading(dataLatLon))
         } else {

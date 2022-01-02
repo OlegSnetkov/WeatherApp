@@ -93,9 +93,10 @@ class WeatherFragment : Fragment() {
     private fun loadCurrentWeather(adapter: AdapterRecyclerView) {
         weatherViewModel.stateOutput.observe(viewLifecycleOwner, { state ->
             when (state) {
-                is WeatherOptionsViewState.SuccessLoading -> adapter.submitList(state.weatherList)
+                is WeatherOptionsViewState.SuccessLoading ->
+                    adapter.submitList(state.weatherList)
                 is WeatherOptionsViewState.FailedLoading -> {
-                    Log.e(TAG, "WeatherLocException", state.exception)
+                    Log.e(TAG, "WeatherLocationException", state.exception)
                     Toast.makeText(
                         requireContext(),
                         R.string.error_network_failed,

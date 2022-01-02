@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity(), WeatherFragment.ClickListener,
     FindLocationFragment.BackClickListener, RepositoryProvider {
 
     private lateinit var binding: MainActivityBinding
+
     private val remoteDataSource = RetrofitDataSource(NetworkModule().api)
 
     override fun onCreate(savedInstanceState: Bundle?) {

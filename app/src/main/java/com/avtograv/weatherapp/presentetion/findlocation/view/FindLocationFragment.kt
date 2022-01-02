@@ -48,14 +48,17 @@ class FindLocationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupUiComponents()
+        getCoordinates()
     }
 
     private fun getCoordinates() {
-        findLocationViewModel.loadCoordinates(binding.etNewItem.text.toString())
+        //       findLocationViewModel.loadCoordinates(binding.etNewItem.text.toString())
 
         findLocationViewModel.stateOutput.observe(viewLifecycleOwner, { state ->
             when (state) {
-                is FindLocationViewState.SuccessLoading -> {}
+                is FindLocationViewState.SuccessLoading -> {
+                    val lat = state.dataLatLon
+                }
                 is FindLocationViewState.NoLocation -> {}
                 is FindLocationViewState.FailedLoading -> {
                     Log.e(ContentValues.TAG, "FindLocException", state.exception)
