@@ -86,6 +86,7 @@ class FindLocationFragment : Fragment() {
                     list.size, locName, lat, lon
                 )
             )
+
             saveLocationList(requireContext(), list)
             _context?.onBackMainScreen()
         }

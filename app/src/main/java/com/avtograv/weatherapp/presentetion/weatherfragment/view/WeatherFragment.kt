@@ -68,7 +68,7 @@ class WeatherFragment : Fragment() {
             setNavigationIcon(R.drawable.ic_plus_white)
             titleMarginStart = 200
             val list = getLocationList(requireContext())
-            title = list.first().locationName
+            title = list.elementAt(pageNumber).locationName
             setTitleTextColor(ContextCompat.getColor(context, R.color.colorTextPrimary))
             setNavigationOnClickListener {
                 _context?.letAddLocation()
@@ -83,8 +83,13 @@ class WeatherFragment : Fragment() {
             adapter = adapterRecyclerView
 
         }
+
         val list = getLocationList(requireContext())
-        weatherViewModel.load(list.first().latitude, list.first().longitude)
+        weatherViewModel.load(
+            list.elementAt(pageNumber).latitude,
+            list.elementAt(pageNumber).longitude
+        )
+
         loadCurrentWeather(adapterRecyclerView)
     }
 
