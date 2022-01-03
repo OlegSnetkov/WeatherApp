@@ -18,5 +18,5 @@ data class Current(
     @SerialName("sunset") val sunset: Int? = null,
     @SerialName("weather") val weather: List<WeatherItem>,
     @SerialName("humidity") val humidity: Int? = null,
-    @SerialName("wind_speed") val windSpeed: Int? = null
+    @SerialName("wind_speed") val windSpeed: Double? = null
 )

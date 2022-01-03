@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.avtograv.weatherapp.R
 import com.avtograv.weatherapp.common.exhaustive
-import com.avtograv.weatherapp.common.getLocationList
+import com.avtograv.weatherapp.data.locally.getLocationList
 import com.avtograv.weatherapp.databinding.FragmentMainScreenBinding
 import com.avtograv.weatherapp.di.RepositoryProvider
 import com.avtograv.weatherapp.presentetion.weatherfragment.viewmodel.WeatherFactoryViewModel
@@ -32,9 +32,7 @@ class WeatherFragment : Fragment() {
     private var _context: ClickListener? = null
     private val weatherViewModel: WeatherViewModelImpl by viewModels {
         WeatherFactoryViewModel(
-            (requireActivity() as RepositoryProvider).provideRepository(),
-            //(getLocationList(requireContext()).first())
-            "51.788898468", "107.682502747"
+            (requireActivity() as RepositoryProvider).provideRepository()
         )
     }
 
@@ -59,7 +57,6 @@ class WeatherFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setupToolbar()
         setupUiComponents()
     }
@@ -70,9 +67,8 @@ class WeatherFragment : Fragment() {
         binding.toolbar.apply {
             setNavigationIcon(R.drawable.ic_plus_white)
             titleMarginStart = 200
-//            title = "Fragment - ${pageNumber + 1}"
-            title = (getLocationList(requireContext()).first())
-
+            val list = getLocationList(requireContext())
+            title = list.first().locationName
             setTitleTextColor(ContextCompat.getColor(context, R.color.colorTextPrimary))
             setNavigationOnClickListener {
                 _context?.letAddLocation()
@@ -87,6 +83,8 @@ class WeatherFragment : Fragment() {
             adapter = adapterRecyclerView
 
         }
+        val list = getLocationList(requireContext())
+        weatherViewModel.load(list.first().latitude, list.first().longitude)
         loadCurrentWeather(adapterRecyclerView)
     }
 

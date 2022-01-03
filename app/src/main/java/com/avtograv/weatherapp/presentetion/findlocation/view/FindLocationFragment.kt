@@ -14,8 +14,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.avtograv.weatherapp.R
 import com.avtograv.weatherapp.common.exhaustive
+import com.avtograv.weatherapp.data.locally.getLocationList
+import com.avtograv.weatherapp.data.locally.saveLocationList
 import com.avtograv.weatherapp.databinding.FragmentAddLocationBinding
 import com.avtograv.weatherapp.di.RepositoryProvider
+import com.avtograv.weatherapp.model.DegreesLocation
 import com.avtograv.weatherapp.presentetion.findlocation.viewmodel.FindLocationFactoryViewModel
 import com.avtograv.weatherapp.presentetion.findlocation.viewmodel.FindLocationViewModelImpl
 import com.avtograv.weatherapp.presentetion.findlocation.viewmodel.FindLocationViewState
@@ -25,6 +28,9 @@ class FindLocationFragment : Fragment() {
 
     private lateinit var binding: FragmentAddLocationBinding
     private var _context: BackClickListener? = null
+    private lateinit var lat: String
+    private lateinit var lon: String
+    private lateinit var locName: String
     private val findLocationViewModel: FindLocationViewModelImpl by viewModels {
         FindLocationFactoryViewModel(
             (requireActivity() as RepositoryProvider).provideRepository()
@@ -48,16 +54,18 @@ class FindLocationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupUiComponents()
-        getCoordinates()
     }
 
-    private fun getCoordinates() {
-        //       findLocationViewModel.loadCoordinates(binding.etNewItem.text.toString())
+    private fun getCoordinates(textInput: String) {
+        findLocationViewModel.loadCoordinates(textInput)
 
         findLocationViewModel.stateOutput.observe(viewLifecycleOwner, { state ->
             when (state) {
                 is FindLocationViewState.SuccessLoading -> {
-                    val lat = state.dataLatLon
+                    binding.tvFoundLoc.text = state.dataLatLon[0].locationName
+                    locName = state.dataLatLon[0].locationName
+                    lat = state.dataLatLon[0].latLocation
+                    lon = state.dataLatLon[0].lonLocation
                 }
                 is FindLocationViewState.NoLocation -> {}
                 is FindLocationViewState.FailedLoading -> {
@@ -70,6 +78,17 @@ class FindLocationFragment : Fragment() {
                 }
             }.exhaustive
         })
+
+        binding.tvFoundLoc.setOnClickListener {
+            val list = getLocationList(requireContext()).toMutableList()
+            list.add(
+                DegreesLocation(
+                    list.size, locName, lat, lon
+                )
+            )
+            saveLocationList(requireContext(), list)
+            _context?.onBackMainScreen()
+        }
     }
 
     private fun setupUiComponents() {
@@ -77,7 +96,7 @@ class FindLocationFragment : Fragment() {
             _context?.onBackMainScreen()
         }
 
-        binding.etNewItem.addTextChangedListener(object : TextWatcher {
+        binding.etNewLoc.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(
                 s: CharSequence?, start: Int, count: Int, after: Int
             ) {
@@ -89,7 +108,7 @@ class FindLocationFragment : Fragment() {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                getCoordinates()
+                getCoordinates(binding.etNewLoc.text.toString())
             }
         })
     }

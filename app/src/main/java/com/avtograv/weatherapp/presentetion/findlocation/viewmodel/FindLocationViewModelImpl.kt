@@ -16,9 +16,9 @@ internal class FindLocationViewModelImpl(private val repository: WeatherReposito
 
     override val stateOutput = MutableLiveData<FindLocationViewState>()
 
-    init {
+    fun loadCoordinates(localName:String) {
         viewModelScope.launch {
-            handleResult(repository.loadLatLon("ulan-ude"))
+            handleResult(repository.loadLatLon(localName))
         }
     }
 

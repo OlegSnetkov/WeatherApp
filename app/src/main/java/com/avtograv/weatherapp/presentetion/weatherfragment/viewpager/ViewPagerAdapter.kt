@@ -10,7 +10,7 @@ import com.avtograv.weatherapp.presentetion.weatherfragment.view.WeatherFragment
 class ViewPagerAdapter(
     mainActivity: MainActivity,
     private val selectionFragment: Boolean,
-    private val itemCount: Int = 2
+    private val itemCount: Int
 ) : FragmentStateAdapter(mainActivity) {
 
     override fun getItemCount(): Int {

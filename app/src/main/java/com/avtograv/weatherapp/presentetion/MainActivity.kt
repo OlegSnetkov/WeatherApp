@@ -8,11 +8,12 @@ import com.avtograv.weatherapp.databinding.MainActivityBinding
 import com.avtograv.weatherapp.di.NetworkModule
 import com.avtograv.weatherapp.di.RepositoryProvider
 import com.avtograv.weatherapp.domain.WeatherRepository
-import com.avtograv.weatherapp.common.getLocationList
+import com.avtograv.weatherapp.data.locally.getLocationList
 import com.avtograv.weatherapp.presentetion.findlocation.view.FindLocationFragment
 import com.avtograv.weatherapp.presentetion.weatherfragment.view.WeatherFragment
 import com.avtograv.weatherapp.presentetion.weatherfragment.viewpager.DepthPageTransformer
 import com.avtograv.weatherapp.presentetion.weatherfragment.viewpager.ViewPagerAdapter
+
 
 class MainActivity : AppCompatActivity(), WeatherFragment.ClickListener,
     FindLocationFragment.BackClickListener, RepositoryProvider {
@@ -37,12 +38,20 @@ class MainActivity : AppCompatActivity(), WeatherFragment.ClickListener,
     override fun provideRepository(): WeatherRepository = RepositoryImpl(remoteDataSource)
 
     override fun letAddLocation() {
-        binding.viewpager.adapter = ViewPagerAdapter(this, SELECT_ADD_LOCATION)
+        binding.viewpager.adapter = ViewPagerAdapter(
+            this,
+            SELECT_ADD_LOCATION,
+            getLocationList(this).size
+        )
     }
 
     override fun onBackMainScreen() {
         binding.viewpager.adapter =
-            ViewPagerAdapter(this, SELECT_MAIN_SCREEN, getLocationList(this).size)
+            ViewPagerAdapter(
+                this,
+                SELECT_MAIN_SCREEN,
+                getLocationList(this).size
+            )
     }
 
     override fun onBackPressed() {

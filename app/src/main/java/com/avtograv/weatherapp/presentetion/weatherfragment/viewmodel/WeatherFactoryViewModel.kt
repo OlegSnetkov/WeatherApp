@@ -7,10 +7,8 @@ import com.avtograv.weatherapp.domain.WeatherRepository
 
 @Suppress("UNCHECKED_CAST")
 internal class WeatherFactoryViewModel(
-    private val repository: WeatherRepository,
-    private val latLocation: String,
-    private val lonLocation: String
+    private val repository: WeatherRepository
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T =
-        WeatherViewModelImpl(repository, latLocation, lonLocation) as T
+        WeatherViewModelImpl(repository) as T
 }
