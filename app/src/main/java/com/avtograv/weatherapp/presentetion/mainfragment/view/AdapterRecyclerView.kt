@@ -1,4 +1,4 @@
-package com.avtograv.weatherapp.presentetion.weatherfragment.view
+package com.avtograv.weatherapp.presentetion.mainfragment.view
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

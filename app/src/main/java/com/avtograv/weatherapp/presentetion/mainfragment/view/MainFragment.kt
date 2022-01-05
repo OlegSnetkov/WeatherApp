@@ -1,4 +1,4 @@
-package com.avtograv.weatherapp.presentetion.weatherfragment.view
+package com.avtograv.weatherapp.presentetion.mainfragment.view
 
 import android.content.ContentValues.TAG
 import android.content.Context
@@ -19,13 +19,13 @@ import com.avtograv.weatherapp.common.exhaustive
 import com.avtograv.weatherapp.data.locally.getLocationList
 import com.avtograv.weatherapp.databinding.FragmentMainScreenBinding
 import com.avtograv.weatherapp.di.RepositoryProvider
-import com.avtograv.weatherapp.presentetion.weatherfragment.viewmodel.WeatherFactoryViewModel
-import com.avtograv.weatherapp.presentetion.weatherfragment.viewmodel.WeatherOptionsViewState
-import com.avtograv.weatherapp.presentetion.weatherfragment.viewmodel.WeatherViewModelImpl
+import com.avtograv.weatherapp.presentetion.mainfragment.viewmodel.WeatherFactoryViewModel
+import com.avtograv.weatherapp.presentetion.mainfragment.viewmodel.WeatherOptionsViewState
+import com.avtograv.weatherapp.presentetion.mainfragment.viewmodel.WeatherViewModelImpl
 import kotlin.properties.Delegates
 
 
-class WeatherFragment : Fragment() {
+class MainFragment : Fragment() {
 
     private lateinit var binding: FragmentMainScreenBinding
     private var pageNumber by Delegates.notNull<Int>()
@@ -120,8 +120,8 @@ class WeatherFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(page: Int): WeatherFragment {
-            val fragment = WeatherFragment()
+        fun newInstance(page: Int): MainFragment {
+            val fragment = MainFragment()
             val args = Bundle()
             args.putInt("num", page)
             fragment.arguments = args

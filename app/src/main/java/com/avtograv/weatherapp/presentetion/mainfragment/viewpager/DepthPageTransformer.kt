@@ -1,4 +1,4 @@
-package com.avtograv.weatherapp.presentetion.weatherfragment.viewpager
+package com.avtograv.weatherapp.presentetion.mainfragment.viewpager
 
 import android.view.View
 import androidx.annotation.RequiresApi

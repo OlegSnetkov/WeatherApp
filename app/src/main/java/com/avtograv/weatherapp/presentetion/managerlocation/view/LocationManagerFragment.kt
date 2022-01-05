@@ -1,4 +1,4 @@
-package com.avtograv.weatherapp.presentetion.findlocation.view
+package com.avtograv.weatherapp.presentetion.managerlocation.view
 
 import android.content.ContentValues
 import android.content.Context
@@ -19,18 +19,19 @@ import com.avtograv.weatherapp.data.locally.saveLocationList
 import com.avtograv.weatherapp.databinding.FragmentAddLocationBinding
 import com.avtograv.weatherapp.di.RepositoryProvider
 import com.avtograv.weatherapp.model.DegreesLocation
-import com.avtograv.weatherapp.presentetion.findlocation.viewmodel.FindLocationFactoryViewModel
-import com.avtograv.weatherapp.presentetion.findlocation.viewmodel.FindLocationViewModelImpl
-import com.avtograv.weatherapp.presentetion.findlocation.viewmodel.FindLocationViewState
+import com.avtograv.weatherapp.presentetion.managerlocation.viewmodel.FindLocationFactoryViewModel
+import com.avtograv.weatherapp.presentetion.managerlocation.viewmodel.FindLocationViewModelImpl
+import com.avtograv.weatherapp.presentetion.managerlocation.viewmodel.LoadingLocationViewState
+import com.avtograv.weatherapp.presentetion.managerlocation.viewmodel.LoadingCurrentWeatherViewState
 
 
-class FindLocationFragment : Fragment() {
+class LocationManagerFragment : Fragment() {
 
     private lateinit var binding: FragmentAddLocationBinding
     private var _context: BackClickListener? = null
-    private lateinit var lat: String
-    private lateinit var lon: String
-    private lateinit var locName: String
+    private lateinit var getLatitude: String
+    private lateinit var getLongitude: String
+    private lateinit var getLocName: String
     private val findLocationViewModel: FindLocationViewModelImpl by viewModels {
         FindLocationFactoryViewModel(
             (requireActivity() as RepositoryProvider).provideRepository()
@@ -56,19 +57,19 @@ class FindLocationFragment : Fragment() {
         setupUiComponents()
     }
 
-    private fun getCoordinates(textInput: String) {
-        findLocationViewModel.loadCoordinates(textInput)
+    private fun getCoordinates(locationName: String) {
+        findLocationViewModel.loadCoordinates(locationName)
 
-        findLocationViewModel.stateOutput.observe(viewLifecycleOwner, { state ->
+        findLocationViewModel.stateOutputLoadCoordinates.observe(viewLifecycleOwner, { state ->
             when (state) {
-                is FindLocationViewState.SuccessLoading -> {
-                    binding.tvFoundLoc.text = state.dataLatLon[0].locationName
-                    locName = state.dataLatLon[0].locationName
-                    lat = state.dataLatLon[0].latLocation
-                    lon = state.dataLatLon[0].lonLocation
+                is LoadingLocationViewState.SuccessLoading -> {
+                    binding.tvFoundLoc.text = state.dataLatLon.first().locationName
+                    getLocName = state.dataLatLon.first().locationName
+                    getLatitude = state.dataLatLon.first().latLocation
+                    getLongitude = state.dataLatLon.first().lonLocation
                 }
-                is FindLocationViewState.NoLocation -> {}
-                is FindLocationViewState.FailedLoading -> {
+                is LoadingLocationViewState.NoLocation -> {}
+                is LoadingLocationViewState.FailedLoading -> {
                     Log.e(ContentValues.TAG, "FindLocException", state.exception)
                     Toast.makeText(
                         requireContext(),
@@ -78,22 +79,44 @@ class FindLocationFragment : Fragment() {
                 }
             }.exhaustive
         })
+    }
 
-        binding.tvFoundLoc.setOnClickListener {
-            val list = getLocationList(requireContext()).toMutableList()
-            list.add(
-                DegreesLocation(
-                    list.size, locName, lat, lon
-                )
-            )
-
-            saveLocationList(requireContext(), list)
-            _context?.onBackMainScreen()
-        }
+    private fun getCurrentWeather(locationName: String) {
+        findLocationViewModel.loadCurrentWeather(locationName)
+        findLocationViewModel.stateOutputLoadWeather.observe(viewLifecycleOwner, { state ->
+            when (state) {
+                is LoadingCurrentWeatherViewState.SuccessLoading -> {
+                    binding.tvAbout.text = state.dataCurrentWeather.aboutWeatherNow
+                    binding.tvCurrentTemp.text = state.dataCurrentWeather.tempNow
+                   binding.tvFeelsLike.text = state.dataCurrentWeather.feelsLike
+                }
+                is LoadingCurrentWeatherViewState.NoLocation -> {}
+                is LoadingCurrentWeatherViewState.FailedLoading -> {
+                    Log.e(ContentValues.TAG, "FindLocException", state.exception)
+                    Toast.makeText(
+                        requireContext(),
+                        R.string.error_network_failed,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }.exhaustive
+        })
     }
 
     private fun setupUiComponents() {
         binding.ivArrowLeft.setOnClickListener {
+            _context?.onBackMainScreen()
+        }
+
+        binding.tvFoundLoc.setOnClickListener {
+            val list = getLocationList(requireContext()).toMutableList()
+            list.clear()
+            list.add(
+                DegreesLocation(
+                    list.size, getLocName, getLatitude, getLongitude
+                )
+            )
+            saveLocationList(requireContext(), list)
             _context?.onBackMainScreen()
         }
 
@@ -109,7 +132,10 @@ class FindLocationFragment : Fragment() {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                getCoordinates(binding.etNewLoc.text.toString())
+                if (s.toString().length > 3) {
+                    getCurrentWeather(s.toString())
+                    getCoordinates(s.toString())
+                }
             }
         })
     }

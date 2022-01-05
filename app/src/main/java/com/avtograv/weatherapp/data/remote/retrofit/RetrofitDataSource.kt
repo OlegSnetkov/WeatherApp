@@ -4,9 +4,9 @@ import android.icu.text.SimpleDateFormat
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.avtograv.weatherapp.data.remote.RemoteDataSource
-import com.avtograv.weatherapp.model.DataCurrentWeather
 import com.avtograv.weatherapp.model.DataForecastWeather
-import com.avtograv.weatherapp.model.DataLatLon
+import com.avtograv.weatherapp.model.DataCoordinates
+import com.avtograv.weatherapp.model.DataCurrentWeather
 import com.avtograv.weatherapp.model.DataWeather
 import java.util.*
 
@@ -18,6 +18,15 @@ internal class RetrofitDataSource(private val api: ApiService) : RemoteDataSourc
         val date = Date(unixSeconds * 1000L)
         val simpleDateFormat = SimpleDateFormat("EEEE", Locale.getDefault())
         return simpleDateFormat.format(date)
+    }
+
+    override suspend fun loadingCurrentWeather(cityName: String): DataCurrentWeather {
+        val details = api.loadCurrentWeather(cityName)
+        return DataCurrentWeather(
+            0,
+            "",
+            details.main.temp.toString(), "", ""
+        )
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
@@ -74,13 +83,13 @@ internal class RetrofitDataSource(private val api: ApiService) : RemoteDataSourc
         )
     }
 
-    override suspend fun getCoordinates(nameLocation: String): List<DataLatLon> {
+    override suspend fun getCoordinates(nameLocation: String): List<DataCoordinates> {
         val details = api.loadCoordinatesByLocation(nameLocation)
         return listOf(
-            DataLatLon(
-                details[0].name,
-                details[0].lat.toString(),
-                details[0].lon.toString()
+            DataCoordinates(
+                details.first().name,
+                details.first().lat.toString(),
+                details.first().lon.toString()
             )
         )
     }

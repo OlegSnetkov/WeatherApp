@@ -86,13 +86,50 @@
 
     <TextView
         android:id="@+id/tv_found_loc"
+        style="@style/item_specificity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/item_specificity"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
         tools:text="Toronto" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_normal"
+        android:orientation="horizontal"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="@+id/gl_right"
+        app:layout_constraintStart_toStartOf="@+id/gl_left"
+        app:layout_constraintTop_toBottomOf="@+id/tv_found_loc">
+
+        <TextView
+            android:id="@+id/tv_about"
+            style="@style/item_specificity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/space_small"
+            tools:text="minimum" />
+
+        <TextView
+            android:id="@+id/tv_current_temp"
+            style="@style/item_specificity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/space_small"
+            tools:text="current" />
+
+        <TextView
+            android:id="@+id/tv_feels_like"
+            style="@style/item_specificity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/space_small"
+            tools:text="maximum" />
+
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

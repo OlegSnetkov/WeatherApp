@@ -9,14 +9,14 @@ import com.avtograv.weatherapp.di.NetworkModule
 import com.avtograv.weatherapp.di.RepositoryProvider
 import com.avtograv.weatherapp.domain.WeatherRepository
 import com.avtograv.weatherapp.data.locally.getLocationList
-import com.avtograv.weatherapp.presentetion.findlocation.view.FindLocationFragment
-import com.avtograv.weatherapp.presentetion.weatherfragment.view.WeatherFragment
-import com.avtograv.weatherapp.presentetion.weatherfragment.viewpager.DepthPageTransformer
-import com.avtograv.weatherapp.presentetion.weatherfragment.viewpager.ViewPagerAdapter
+import com.avtograv.weatherapp.presentetion.managerlocation.view.LocationManagerFragment
+import com.avtograv.weatherapp.presentetion.mainfragment.view.MainFragment
+import com.avtograv.weatherapp.presentetion.mainfragment.viewpager.DepthPageTransformer
+import com.avtograv.weatherapp.presentetion.mainfragment.viewpager.ViewPagerAdapter
 
 
-class MainActivity : AppCompatActivity(), WeatherFragment.ClickListener,
-    FindLocationFragment.BackClickListener, RepositoryProvider {
+class MainActivity : AppCompatActivity(), MainFragment.ClickListener,
+    LocationManagerFragment.BackClickListener, RepositoryProvider {
 
     private lateinit var binding: MainActivityBinding
 
