@@ -1,4 +1,4 @@
-package com.avtograv.weatherapp.presentetion
+package com.avtograv.weatherapp.presentetion.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -11,8 +11,8 @@ import com.avtograv.weatherapp.domain.WeatherRepository
 import com.avtograv.weatherapp.data.locally.getLocationList
 import com.avtograv.weatherapp.presentetion.managerlocation.view.LocationManagerFragment
 import com.avtograv.weatherapp.presentetion.mainfragment.view.MainFragment
-import com.avtograv.weatherapp.presentetion.mainfragment.viewpager.DepthPageTransformer
-import com.avtograv.weatherapp.presentetion.mainfragment.viewpager.ViewPagerAdapter
+import com.avtograv.weatherapp.presentetion.main.viewpager.DepthPageTransformer
+import com.avtograv.weatherapp.presentetion.main.viewpager.ViewPagerAdapter
 
 
 class MainActivity : AppCompatActivity(), MainFragment.ClickListener,

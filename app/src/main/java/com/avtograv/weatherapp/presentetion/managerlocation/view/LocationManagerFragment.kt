@@ -1,8 +1,10 @@
 package com.avtograv.weatherapp.presentetion.managerlocation.view
 
-import android.content.ContentValues
-import android.content.Context
+import android.Manifest
+import android.content.*
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.IBinder
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -10,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.avtograv.weatherapp.R
@@ -21,14 +24,18 @@ import com.avtograv.weatherapp.di.RepositoryProvider
 import com.avtograv.weatherapp.model.DegreesLocation
 import com.avtograv.weatherapp.presentetion.managerlocation.viewmodel.FindLocationFactoryViewModel
 import com.avtograv.weatherapp.presentetion.managerlocation.viewmodel.FindLocationViewModelImpl
-import com.avtograv.weatherapp.presentetion.managerlocation.viewmodel.LoadingLocationViewState
 import com.avtograv.weatherapp.presentetion.managerlocation.viewmodel.LoadingCurrentWeatherViewState
+import com.avtograv.weatherapp.presentetion.managerlocation.viewmodel.LoadingLocationViewState
+import com.avtograv.weatherapp.service.ForegroundOnlyLocationService
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 
 
-class LocationManagerFragment : Fragment() {
+class LocationManagerFragment : Fragment(), SharedPreferences.OnSharedPreferenceChangeListener {
 
     private lateinit var binding: FragmentAddLocationBinding
     private var _context: BackClickListener? = null
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var getLatitude: String
     private lateinit var getLongitude: String
     private lateinit var getLocName: String
@@ -37,11 +44,26 @@ class LocationManagerFragment : Fragment() {
             (requireActivity() as RepositoryProvider).provideRepository()
         )
     }
+    private val foregroundOnlyLocationService: ForegroundOnlyLocationService? = null
+    private val foregroundOnlyServiceConnection = object : ServiceConnection {
+        override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
+            val binder = service as ForegroundOnlyLocationService
+        }
+
+        override fun onServiceDisconnected(name: ComponentName?) {
+            TODO("Not yet implemented")
+        }
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is BackClickListener)
             _context = context
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
     }
 
     override fun onCreateView(
@@ -55,6 +77,7 @@ class LocationManagerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupUiComponents()
+        getLastKnownLocation()
     }
 
     private fun getCoordinates(locationName: String) {
@@ -88,7 +111,7 @@ class LocationManagerFragment : Fragment() {
                 is LoadingCurrentWeatherViewState.SuccessLoading -> {
                     binding.tvAbout.text = state.dataCurrentWeather.aboutWeatherNow
                     binding.tvCurrentTemp.text = state.dataCurrentWeather.tempNow
-                   binding.tvFeelsLike.text = state.dataCurrentWeather.feelsLike
+                    binding.tvFeelsLike.text = state.dataCurrentWeather.feelsLike
                 }
                 is LoadingCurrentWeatherViewState.NoLocation -> {}
                 is LoadingCurrentWeatherViewState.FailedLoading -> {
@@ -139,6 +162,28 @@ class LocationManagerFragment : Fragment() {
             }
         })
     }
+
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
+        TODO("Not yet implemented")
+    }
+
+    private fun getLastKnownLocation() {
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // TODO
+        } else {
+            fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+                binding.tvCurrentTemp.text = location?.latitude.toString()
+            }
+        }
+    }
+
 
     override fun onDetach() {
         _context = null

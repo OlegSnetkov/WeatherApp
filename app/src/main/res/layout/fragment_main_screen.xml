@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_weather_fragment"
-    tools:context=".presentetion.MainActivity">
+    tools:context=".presentetion.main.MainActivity">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gl_top"

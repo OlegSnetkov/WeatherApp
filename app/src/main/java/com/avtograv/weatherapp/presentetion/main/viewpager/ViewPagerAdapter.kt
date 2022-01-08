@@ -1,9 +1,9 @@
-package com.avtograv.weatherapp.presentetion.mainfragment.viewpager
+package com.avtograv.weatherapp.presentetion.main.viewpager
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.avtograv.weatherapp.presentetion.managerlocation.view.LocationManagerFragment
-import com.avtograv.weatherapp.presentetion.MainActivity
+import com.avtograv.weatherapp.presentetion.main.MainActivity
 import com.avtograv.weatherapp.presentetion.mainfragment.view.MainFragment
 
 
