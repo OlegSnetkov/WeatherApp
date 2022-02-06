@@ -71,11 +71,11 @@ class LocationManagerFragment : Fragment() {
                 is LoadingLocationViewState.NoLocation -> {}
                 is LoadingLocationViewState.FailedLoading -> {
                     Log.e(ContentValues.TAG, "FindLocException", state.exception)
-                    Toast.makeText(
-                        requireContext(),
-                        R.string.error_network_failed,
-                        Toast.LENGTH_SHORT
-                    ).show()
+//                    Toast.makeText(
+//                        requireContext(),
+//                        R.string.error_network_failed,
+//                        Toast.LENGTH_SHORT
+//                    ).show()
                 }
             }.exhaustive
         })
@@ -93,11 +93,11 @@ class LocationManagerFragment : Fragment() {
                 is LoadingCurrentWeatherViewState.NoLocation -> {}
                 is LoadingCurrentWeatherViewState.FailedLoading -> {
                     Log.e(ContentValues.TAG, "FindLocException", state.exception)
-                    Toast.makeText(
-                        requireContext(),
-                        R.string.error_network_failed,
-                        Toast.LENGTH_SHORT
-                    ).show()
+//                    Toast.makeText(
+//                        requireContext(),
+//                        R.string.error_network_failed,
+//                        Toast.LENGTH_SHORT
+//                    ).show()
                 }
             }.exhaustive
         })
