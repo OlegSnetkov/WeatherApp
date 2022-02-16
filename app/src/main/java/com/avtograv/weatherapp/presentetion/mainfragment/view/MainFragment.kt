@@ -94,7 +94,7 @@ class MainFragment : Fragment() {
     }
 
     private fun loadCurrentWeather(adapter: AdapterRecyclerView) {
-        weatherViewModel.stateOutput.observe(viewLifecycleOwner, { state ->
+        weatherViewModel.stateOutput.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is WeatherOptionsViewState.SuccessLoading ->
                     adapter.submitList(state.weatherList)
@@ -107,7 +107,7 @@ class MainFragment : Fragment() {
                     ).show()
                 }
             }.exhaustive
-        })
+        }
     }
 
     override fun onDetach() {
