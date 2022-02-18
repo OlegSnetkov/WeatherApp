@@ -9,13 +9,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.avtograv.weatherapp.R
 import com.avtograv.weatherapp.common.exhaustive
-import com.avtograv.weatherapp.data.locally.getLocationList
-import com.avtograv.weatherapp.data.locally.saveLocationList
+import com.avtograv.weatherapp.data.getLocationList
+import com.avtograv.weatherapp.data.saveLocationList
 import com.avtograv.weatherapp.databinding.FragmentAddLocationBinding
 import com.avtograv.weatherapp.di.RepositoryProvider
 import com.avtograv.weatherapp.model.DegreesLocation
@@ -60,7 +58,7 @@ class LocationManagerFragment : Fragment() {
     private fun getCoordinates(locationName: String) {
         findLocationViewModel.loadCoordinates(locationName)
 
-        findLocationViewModel.stateOutputLoadCoordinates.observe(viewLifecycleOwner, { state ->
+        findLocationViewModel.stateOutputLoadCoordinates.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is LoadingLocationViewState.SuccessLoading -> {
                     binding.tvFoundLoc.text = state.dataLatLon.first().locationName
@@ -78,7 +76,7 @@ class LocationManagerFragment : Fragment() {
 //                    ).show()
                 }
             }.exhaustive
-        })
+        }
     }
 
     private fun getCurrentWeather(locationName: String) {

@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.avtograv.weatherapp.R
 import com.avtograv.weatherapp.common.exhaustive
-import com.avtograv.weatherapp.data.locally.getLocationList
+import com.avtograv.weatherapp.data.getLocationList
 import com.avtograv.weatherapp.databinding.FragmentMainScreenBinding
 import com.avtograv.weatherapp.di.RepositoryProvider
 import com.avtograv.weatherapp.presentetion.mainfragment.viewmodel.WeatherFactoryViewModel

@@ -1,4 +1,4 @@
-package com.avtograv.weatherapp.data.locally
+package com.avtograv.weatherapp.data
 
 import android.content.Context
 import android.location.Location
