@@ -9,8 +9,6 @@ import android.util.Log
 import androidx.annotation.MainThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.avtograv.weatherapp.LocationUpdatesBroadcastReceiver
-import com.avtograv.weatherapp.hasPermission
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices

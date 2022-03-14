@@ -134,6 +134,4 @@
             tools:text="maximum" />
 
     </LinearLayout>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
