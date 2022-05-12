@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity(), MainFragment.CallbacksListener,
 
         binding.viewpager.setPageTransformer(DepthPageTransformer())
         binding.viewpager.adapter = ViewPagerAdapter(
-            this, SELECT_PERMISSION_REQUEST, 1
+            this, SELECT_MAIN_SCREEN, 1
         )
     }
 
@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity(), MainFragment.CallbacksListener,
     override fun requestFineLocationPermission() {
         binding.viewpager.adapter = ViewPagerAdapter(
             this,
-            SELECT_PERMISSION_REQUEST
+            SELECT_MAIN_SCREEN
         )
     }
 
@@ -73,6 +73,5 @@ class MainActivity : AppCompatActivity(), MainFragment.CallbacksListener,
     companion object {
         private const val SELECT_MAIN_SCREEN = 1
         private const val SELECT_ADD_LOCATION = 2
-        private const val SELECT_PERMISSION_REQUEST = 3
     }
 }

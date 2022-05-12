@@ -1,6 +1,5 @@
 package com.avtograv.weatherapp.ui.mainfragment.view
 
-import android.Manifest
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.os.Bundle
@@ -18,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.avtograv.weatherapp.R
 import com.avtograv.weatherapp.common.exhaustive
 import com.avtograv.weatherapp.data.getLocationList
-import com.avtograv.weatherapp.data.location.hasPermission
 import com.avtograv.weatherapp.databinding.FragmentMainBinding
 import com.avtograv.weatherapp.di.RepositoryProvider
 import com.avtograv.weatherapp.ui.mainfragment.viewmodel.WeatherFactoryViewModel
@@ -45,12 +43,6 @@ class MainFragment : Fragment() {
 
         if (context is CallbacksListener) {
             activityListener = context
-
-//            if (!context.hasPermission(Manifest.permission.ACCESS_FINE_LOCATION)) {
-//                activityListener?.requestFineLocationPermission()
-//            }
-//        } else {
-//            throw RuntimeException("$context must implement LocationUpdateFragment.Callbacks")
         }
     }
 
