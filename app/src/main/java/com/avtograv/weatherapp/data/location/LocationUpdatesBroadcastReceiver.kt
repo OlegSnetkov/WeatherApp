@@ -46,14 +46,14 @@ class LocationUpdatesBroadcastReceiver : BroadcastReceiver() {
                     )
                 }
                 if (locations.isNotEmpty()) {
-                    LocationRepository.getInstance(context, Executors.newSingleThreadExecutor()).addLocations(locations)
+                    LocationRepository.getInstance(context, Executors.newSingleThreadExecutor())
+                        .addLocations(locations)
                 }
             }
         }
     }
 
     private fun isAppInForeground(context: Context): Boolean {
-
         return false
     }
 

@@ -26,7 +26,8 @@ data class MyLocationEntity(
             "in BG"
         }
 
-        return "$latitude, $longitude $appState on " +
-                "${DateFormat.getDateTimeInstance().format(date)}.\n"
+        return "$latitude, $longitude $appState on " + "${
+            DateFormat.getDateTimeInstance().format(date)
+        }.\n"
     }
 }
