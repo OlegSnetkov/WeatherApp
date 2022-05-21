@@ -9,8 +9,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.avtograv.weatherapp.R
 import com.avtograv.weatherapp.common.exhaustive
 import com.avtograv.weatherapp.data.getLocationList
 import com.avtograv.weatherapp.data.saveLocationList
@@ -71,11 +73,11 @@ class LocationManagerFragment : Fragment() {
                 is LoadingLocationViewState.NoLocation -> {}
                 is LoadingLocationViewState.FailedLoading -> {
                     Log.e(ContentValues.TAG, "FindLocException", state.exception)
-//                    Toast.makeText(
-//                        requireContext(),
-//                        R.string.error_network_failed,
-//                        Toast.LENGTH_SHORT
-//                    ).show()
+                    Toast.makeText(
+                        requireContext(),
+                        R.string.error_network_failed,
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }.exhaustive
         }
@@ -83,7 +85,7 @@ class LocationManagerFragment : Fragment() {
 
     private fun getCurrentWeather(locationName: String) {
         findLocationViewModel.loadCurrentWeather(locationName)
-        findLocationViewModel.stateOutputLoadWeather.observe(viewLifecycleOwner, { state ->
+        findLocationViewModel.stateOutputLoadWeather.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is LoadingCurrentWeatherViewState.SuccessLoading -> {
                     binding.tvAbout.text = state.dataCurrentWeather.aboutWeatherNow
@@ -93,14 +95,14 @@ class LocationManagerFragment : Fragment() {
                 is LoadingCurrentWeatherViewState.NoLocation -> {}
                 is LoadingCurrentWeatherViewState.FailedLoading -> {
                     Log.e(ContentValues.TAG, "FindLocException", state.exception)
-//                    Toast.makeText(
-//                        requireContext(),
-//                        R.string.error_network_failed,
-//                        Toast.LENGTH_SHORT
-//                    ).show()
+                    Toast.makeText(
+                        requireContext(),
+                        R.string.error_network_failed,
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }.exhaustive
-        })
+        }
     }
 
     private fun setupUiComponents() {

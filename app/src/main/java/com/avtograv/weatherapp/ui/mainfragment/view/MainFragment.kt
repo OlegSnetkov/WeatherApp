@@ -1,5 +1,6 @@
 package com.avtograv.weatherapp.ui.mainfragment.view
 
+import android.Manifest
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.os.Bundle
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.avtograv.weatherapp.R
 import com.avtograv.weatherapp.common.exhaustive
 import com.avtograv.weatherapp.data.getLocationList
+import com.avtograv.weatherapp.data.location.hasPermission
 import com.avtograv.weatherapp.databinding.FragmentMainBinding
 import com.avtograv.weatherapp.di.RepositoryProvider
 import com.avtograv.weatherapp.ui.mainfragment.viewmodel.WeatherFactoryViewModel
@@ -40,7 +42,6 @@ class MainFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-
         if (context is CallbacksListener) {
             activityListener = context
         }
@@ -74,8 +75,11 @@ class MainFragment : Fragment() {
             val list = getLocationList(requireContext())
             title = list.elementAt(pageNumber).locationName
             setTitleTextColor(ContextCompat.getColor(context, R.color.colorTextPrimary))
+
             setNavigationOnClickListener {
-                activityListener?.letAddLocation()
+                if (!context.hasPermission(Manifest.permission.ACCESS_FINE_LOCATION)) {
+                    activityListener?.requestFineLocationPermission()
+                } else activityListener?.letAddLocation()
             }
         }
     }
@@ -93,10 +97,10 @@ class MainFragment : Fragment() {
             list.elementAt(pageNumber).longitude
         )
 
-        loadCurrentWeather(adapterRecyclerView)
+        loadingCurrentWeather(adapterRecyclerView)
     }
 
-    private fun loadCurrentWeather(adapter: AdapterRecyclerView) {
+    private fun loadingCurrentWeather(adapter: AdapterRecyclerView) {
         weatherViewModel.stateOutput.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is WeatherOptionsViewState.SuccessLoading ->

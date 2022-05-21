@@ -5,6 +5,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.avtograv.weatherapp.ui.main.MainActivity
 import com.avtograv.weatherapp.ui.mainfragment.view.MainFragment
 import com.avtograv.weatherapp.ui.managerlocation.view.LocationManagerFragment
+import com.avtograv.weatherapp.ui.requestpermissions.PermissionRequestFragment
 
 
 class ViewPagerAdapter(
@@ -21,6 +22,7 @@ class ViewPagerAdapter(
         return when (selectionFragment) {
             1 -> MainFragment.newInstance(position)
             2 -> LocationManagerFragment()
+            3 -> PermissionRequestFragment.newInstance()
             else -> throw IllegalArgumentException()
         }
     }
