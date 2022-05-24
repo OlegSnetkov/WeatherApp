@@ -19,16 +19,6 @@
     <string name="manage_cities">Manage cities</string>
 
     <string name="error_network_failed">Check your network connection!</string>
-    <string name="fine_location_access_rationale_title_text">
-        Welcome to the Background Location Sample!</string>
-
-    <string name="fine_location_access_rationale_details_text">
-        This sample allows you to receive location updates while using the app.
-        \n\n
-        In order for this feature to work, please approve access to your location via the button below.
-    </string>
-
-    <string name="enable_fine_location_button_text">Approve Location Access</string>
 
     <string name="fine_location_permission_rationale">The fine location permission is needed for core functionality.</string>
     <string name="fine_permission_denied_explanation">Fine location permission was denied, but is needed for core functionality.</string>

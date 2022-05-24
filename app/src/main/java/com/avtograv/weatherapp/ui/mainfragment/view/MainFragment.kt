@@ -3,12 +3,15 @@ package com.avtograv.weatherapp.ui.mainfragment.view
 import android.Manifest
 import android.content.ContentValues.TAG
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -18,7 +21,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.avtograv.weatherapp.R
 import com.avtograv.weatherapp.common.exhaustive
 import com.avtograv.weatherapp.data.getLocationList
-import com.avtograv.weatherapp.data.location.hasPermission
 import com.avtograv.weatherapp.databinding.FragmentMainBinding
 import com.avtograv.weatherapp.di.RepositoryProvider
 import com.avtograv.weatherapp.ui.mainfragment.viewmodel.WeatherFactoryViewModel
@@ -32,13 +34,17 @@ class MainFragment : Fragment() {
     private val binding get() = _binding!!
     private var activityListener: CallbacksListener? = null
     private var pageNumber = 0
-
-
     private val weatherViewModel: WeatherViewModelImpl by viewModels {
         WeatherFactoryViewModel(
             (requireActivity() as RepositoryProvider).provideRepository()
         )
     }
+    private val requestMultiplePermissions =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+            permissions.entries.forEach {
+                Log.d("DEBUG", "${it.key} = ${it.value}")
+            }
+        }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -52,10 +58,17 @@ class MainFragment : Fragment() {
         pageNumber = if (arguments != null) requireArguments().getInt("num") else 0
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
+        requestMultiplePermissions.launch(
+            arrayOf(
+                Manifest.permission.ACCESS_BACKGROUND_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
+        )
         _binding = FragmentMainBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -75,11 +88,8 @@ class MainFragment : Fragment() {
             val list = getLocationList(requireContext())
             title = list.elementAt(pageNumber).locationName
             setTitleTextColor(ContextCompat.getColor(context, R.color.colorTextPrimary))
-
             setNavigationOnClickListener {
-                if (!context.hasPermission(Manifest.permission.ACCESS_FINE_LOCATION)) {
-                    activityListener?.requestFineLocationPermission()
-                } else activityListener?.letAddLocation()
+                activityListener?.displayAddLocation()
             }
         }
     }
@@ -128,8 +138,7 @@ class MainFragment : Fragment() {
     }
 
     interface CallbacksListener {
-        fun requestFineLocationPermission()
-        fun letAddLocation()
+        fun displayAddLocation()
     }
 
     companion object {

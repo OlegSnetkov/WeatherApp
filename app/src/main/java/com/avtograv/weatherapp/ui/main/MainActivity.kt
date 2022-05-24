@@ -13,11 +13,10 @@ import com.avtograv.weatherapp.ui.main.viewpager.DepthPageTransformer
 import com.avtograv.weatherapp.ui.main.viewpager.ViewPagerAdapter
 import com.avtograv.weatherapp.ui.mainfragment.view.MainFragment
 import com.avtograv.weatherapp.ui.managerlocation.view.LocationManagerFragment
-import com.avtograv.weatherapp.ui.requestpermissions.PermissionRequestFragment
 
 
 class MainActivity : AppCompatActivity(), MainFragment.CallbacksListener,
-    LocationManagerFragment.BackClickListener, PermissionRequestFragment.CallbacksListener,RepositoryProvider {
+    LocationManagerFragment.BackClickListener, RepositoryProvider {
 
     private lateinit var binding: MainActivityBinding
     private var itemCountViewPager = 1
@@ -39,21 +38,14 @@ class MainActivity : AppCompatActivity(), MainFragment.CallbacksListener,
 
     override fun provideRepository(): WeatherRepository = RepositoryImpl(remoteDataSource)
 
-    override fun requestFineLocationPermission() {
-        binding.viewpager.adapter = ViewPagerAdapter(
-            this,
-            SELECT_REQUEST_FINE_LOCATION_PERMISSION
-        )
-    }
-
-    override fun letAddLocation() {
+    override fun displayAddLocation() {
         binding.viewpager.adapter = ViewPagerAdapter(
             this,
             SELECT_ADD_LOCATION
         )
     }
 
-    override fun onBackMainScreen() {
+    override fun onBackMainFragment() {
         binding.viewpager.adapter =
             ViewPagerAdapter(
                 this,
@@ -74,6 +66,5 @@ class MainActivity : AppCompatActivity(), MainFragment.CallbacksListener,
     companion object {
         private const val SELECT_MAIN_SCREEN = 1
         private const val SELECT_ADD_LOCATION = 2
-        private const val SELECT_REQUEST_FINE_LOCATION_PERMISSION = 3
     }
 }

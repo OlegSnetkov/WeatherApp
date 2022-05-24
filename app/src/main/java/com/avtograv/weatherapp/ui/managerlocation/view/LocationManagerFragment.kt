@@ -107,7 +107,7 @@ class LocationManagerFragment : Fragment() {
 
     private fun setupUiComponents() {
         binding.ivArrowLeft.setOnClickListener {
-            _context?.onBackMainScreen()
+            _context?.onBackMainFragment()
         }
 
         binding.tvFoundLoc.setOnClickListener {
@@ -119,7 +119,7 @@ class LocationManagerFragment : Fragment() {
                 )
             )
             saveLocationList(requireContext(), list)
-            _context?.onBackMainScreen()
+            _context?.onBackMainFragment()
         }
 
         binding.etNewLoc.addTextChangedListener(object : TextWatcher {
@@ -153,6 +153,6 @@ class LocationManagerFragment : Fragment() {
     }
 
     interface BackClickListener {
-        fun onBackMainScreen()
+        fun onBackMainFragment()
     }
 }
