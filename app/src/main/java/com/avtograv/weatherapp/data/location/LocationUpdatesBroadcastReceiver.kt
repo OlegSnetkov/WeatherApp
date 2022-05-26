@@ -11,14 +11,6 @@ import com.google.android.gms.location.LocationResult
 import java.util.*
 import java.util.concurrent.Executors
 
-/**
- * Receiver for handling location updates.
- *
- * For apps targeting API level O and above
- * {@link android.app.PendingIntent#getBroadcast(Context, int, Intent, int)} should be used when
- * requesting location updates in the background. Due to limits on background services,
- * {@link android.app.PendingIntent#getService(Context, int, Intent, int)} should NOT be used.
- */
 
 class LocationUpdatesBroadcastReceiver : BroadcastReceiver() {
 
@@ -30,11 +22,11 @@ class LocationUpdatesBroadcastReceiver : BroadcastReceiver() {
             /**
              * Checks for location availability changes.
              */
-            LocationAvailability.extractLocationAvailability(intent).let { locationAvailability ->
-                if (!locationAvailability.isLocationAvailable) {
-                    Log.d(TAG, "Location services are no longer available!")
-                }
-            }
+//            LocationAvailability.extractLocationAvailability(intent).let { locationAvailability ->
+//                if (!locationAvailability.isLocationAvailable) {
+//                    Log.d(TAG, "Location services are no longer available!")
+//                }
+//            }
 
             LocationResult.extractResult(intent).let { locationResult ->
                 val locations = locationResult.locations.map { location ->

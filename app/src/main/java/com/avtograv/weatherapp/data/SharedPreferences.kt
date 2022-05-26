@@ -19,6 +19,7 @@ fun saveLocationList(context: Context, list: List<DegreesLocation>) {
     sharedPreferences.edit().putString(LOCATION_WEATHER_lIST, json).apply()
 }
 
+
 fun getLocationList(context: Context): List<DegreesLocation> {
     val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
     val json = sharedPreferences.getString(LOCATION_WEATHER_lIST, "")

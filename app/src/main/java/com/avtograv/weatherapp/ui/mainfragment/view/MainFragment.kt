@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.avtograv.weatherapp.R
@@ -23,6 +24,7 @@ import com.avtograv.weatherapp.common.exhaustive
 import com.avtograv.weatherapp.data.getLocationList
 import com.avtograv.weatherapp.databinding.FragmentMainBinding
 import com.avtograv.weatherapp.di.RepositoryProvider
+import com.avtograv.weatherapp.ui.mainfragment.dbviewmodel.LocationUpdateViewModel
 import com.avtograv.weatherapp.ui.mainfragment.viewmodel.WeatherFactoryViewModel
 import com.avtograv.weatherapp.ui.mainfragment.viewmodel.WeatherOptionsViewState
 import com.avtograv.weatherapp.ui.mainfragment.viewmodel.WeatherViewModelImpl
@@ -39,6 +41,9 @@ class MainFragment : Fragment() {
             (requireActivity() as RepositoryProvider).provideRepository()
         )
     }
+    private val locationUpdateViewModel by lazy {
+        ViewModelProvider(this)[LocationUpdateViewModel::class.java]
+    }
     private val requestMultiplePermissions =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
             permissions.entries.forEach {
@@ -50,6 +55,8 @@ class MainFragment : Fragment() {
         super.onAttach(context)
         if (context is CallbacksListener) {
             activityListener = context
+        } else {
+            throw RuntimeException("$context must implement MainFragment.CallbacksListener")
         }
     }
 
@@ -76,6 +83,7 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupToolbar()
+        getLocation()
         setupUiComponents()
     }
 
@@ -124,6 +132,25 @@ class MainFragment : Fragment() {
                     ).show()
                 }
             }.exhaustive
+        }
+    }
+
+    private fun getLocation() {
+        locationUpdateViewModel.startLocationUpdates()
+
+        locationUpdateViewModel.locationListLiveData.observe(viewLifecycleOwner) { locations ->
+            locations?.let {
+                Log.d("locations", "Got ${locations.size} locations")
+                if (locations.isEmpty()) {
+                    Log.d("locations", "empty location database message")
+                } else {
+                    val outputStringBuilder = StringBuilder("")
+                    for (location in locations) {
+                        outputStringBuilder.append(location.toString() + "\n")
+                    }
+                    Log.d("locations", outputStringBuilder.toString())
+                }
+            }
         }
     }
 

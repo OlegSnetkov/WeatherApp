@@ -43,25 +43,12 @@ class MyLocationManager private constructor(private val context: Context) {
         priority = LocationRequest.PRIORITY_HIGH_ACCURACY
     }
 
-    /**
-     * Creates default PendingIntent for location changes.
-     *
-     * Note: We use a BroadcastReceiver because on API level 26
-     * and above (Oreo+), Android places limits on Services.
-     */
     private val locationUpdatePendingIntent: PendingIntent by lazy {
         val intent = Intent(context, LocationUpdatesBroadcastReceiver::class.java)
         intent.action = LocationUpdatesBroadcastReceiver.ACTION_PROCESS_UPDATES
         PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
     }
 
-    /**
-     * Uses the FusedLocationProvider to start location updates
-     * if the correct fine locations are approved.
-     *
-     * @throws SecurityException if ACCESS_FINE_LOCATION permission is removed before the
-     * FusedLocationClient's requestLocationUpdates() has been completed.
-     */
     @Throws(SecurityException::class)
     @MainThread
     fun startLocationUpdates() {
