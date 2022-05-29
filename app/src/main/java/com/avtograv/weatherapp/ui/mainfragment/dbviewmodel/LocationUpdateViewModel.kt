@@ -21,4 +21,6 @@ class LocationUpdateViewModel(application: Application) : AndroidViewModel(appli
     fun startLocationUpdates() = locationRepository.startLocationUpdates()
 
     fun stopLocationUpdates() = locationRepository.stopLocationUpdates()
+
+    val clearTable = locationRepository.clearTable()
 }

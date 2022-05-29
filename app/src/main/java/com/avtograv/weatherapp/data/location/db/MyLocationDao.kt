@@ -12,6 +12,9 @@ import java.util.*
  */
 @Dao
 interface MyLocationDao {
+    @Query("DELETE FROM my_location_table")
+    fun clearLocationTable()
+
     @Query("SELECT * FROM my_location_table ORDER BY date DESC")
     fun getLocations(): LiveData<List<MyLocationEntity>>
 

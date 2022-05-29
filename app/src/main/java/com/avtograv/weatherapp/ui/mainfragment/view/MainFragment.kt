@@ -36,6 +36,8 @@ class MainFragment : Fragment() {
     private val binding get() = _binding!!
     private var activityListener: CallbacksListener? = null
     private var pageNumber = 0
+    private lateinit var locationLatitude: String
+    private lateinit var locationLongitude: String
     private val weatherViewModel: WeatherViewModelImpl by viewModels {
         WeatherFactoryViewModel(
             (requireActivity() as RepositoryProvider).provideRepository()
@@ -82,9 +84,16 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val adapterRecyclerView = AdapterRecyclerView()
+        binding.rvWeather.apply {
+            layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+            adapter = adapterRecyclerView
+        }
+
         setupToolbar()
         getLocation()
-        setupUiComponents()
+        loadingCurrentWeather(adapterRecyclerView)
     }
 
     private fun setupToolbar() {
@@ -94,28 +103,15 @@ class MainFragment : Fragment() {
             setNavigationIcon(R.drawable.ic_plus_white)
             titleMarginStart = 200
             val list = getLocationList(requireContext())
-            title = list.elementAt(pageNumber).locationName
+
+            title = if (pageNumber == 0) "Current location"
+            else list.elementAt(pageNumber).locationName
+
             setTitleTextColor(ContextCompat.getColor(context, R.color.colorTextPrimary))
             setNavigationOnClickListener {
                 activityListener?.displayAddLocation()
             }
         }
-    }
-
-    private fun setupUiComponents() {
-        val adapterRecyclerView = AdapterRecyclerView()
-        binding.rvWeather.apply {
-            layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-            adapter = adapterRecyclerView
-        }
-
-        val list = getLocationList(requireContext())
-        weatherViewModel.load(
-            list.elementAt(pageNumber).latitude,
-            list.elementAt(pageNumber).longitude
-        )
-
-        loadingCurrentWeather(adapterRecyclerView)
     }
 
     private fun loadingCurrentWeather(adapter: AdapterRecyclerView) {
@@ -136,8 +132,8 @@ class MainFragment : Fragment() {
     }
 
     private fun getLocation() {
+        // locationUpdateViewModel.clearTable
         locationUpdateViewModel.startLocationUpdates()
-
         locationUpdateViewModel.locationListLiveData.observe(viewLifecycleOwner) { locations ->
             locations?.let {
                 Log.d("locations", "Got ${locations.size} locations")
@@ -148,10 +144,18 @@ class MainFragment : Fragment() {
                     for (location in locations) {
                         outputStringBuilder.append(location.toString() + "\n")
                     }
-                    Log.d("locations", outputStringBuilder.toString())
+                    Log.d("outputStringBuilder", outputStringBuilder.toString())
+
+
+                    locationLatitude = locations.elementAt(locations.size - 1).latitude.toString()
+                    locationLongitude = locations.elementAt(locations.size - 1).longitude.toString()
+                    if (this::locationLatitude.isInitialized and this::locationLatitude.isInitialized) {
+                        weatherViewModel.load(locationLatitude, locationLongitude)
+                    }
                 }
             }
         }
+        locationUpdateViewModel.stopLocationUpdates()
     }
 
     override fun onDetach() {

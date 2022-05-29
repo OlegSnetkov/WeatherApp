@@ -25,7 +25,7 @@
         <TextView
             android:id="@+id/tv_temp_now"
             style="@style/item_specificity"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="0dp"
             android:textSize="@dimen/text_big"

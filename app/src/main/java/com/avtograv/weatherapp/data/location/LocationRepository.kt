@@ -34,6 +34,12 @@ class LocationRepository private constructor(
         }
     }
 
+    fun clearTable() {
+        executor.execute {
+            locationDao.clearLocationTable()
+        }
+    }
+
     /**
      * Adds location to the database.
      */
